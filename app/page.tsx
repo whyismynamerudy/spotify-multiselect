@@ -6,6 +6,7 @@ export default function Home() {
       <a 
         href='\api\login'
       >
+        <p className="text-white">this is a feature that <span className="text-green-500"> Spotify</span> should have implemented already</p>
         <p className="text-white">Log in to Spotify</p>
       </a>
     </main>
