@@ -4,8 +4,15 @@ import Cookies from 'js-cookie';
 const querystring = require('querystring');
 
 export async function GET(request: NextRequest) {
+
     const url = new URL(request.url)
     const code = url.searchParams.get('code')
+
+    console.log(`
+        Returning from Spotify:
+            url: ${url},
+            code: ${code}
+    `)
 
     axios({
         method: 'post',
