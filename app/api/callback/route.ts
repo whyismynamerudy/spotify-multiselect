@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { useContext } from 'react';
+import { AuthContext } from '@/components/AuthContext';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 const querystring = require('querystring');
@@ -49,9 +51,10 @@ export async function GET(request: NextRequest) {
         const { access_token, token_type } = response.data;
         const auth = `${token_type} ${access_token}`;
         // Cookies.set('Authorization', auth, { httpOnly: true });
-        // store it in local storage instead.
-        localStorage.setItem('access_token', access_token);
-        localStorage.setItem('token_type', token_type);
+        // using context API
+
+        const { setToken } = useContext(AuthContext);
+        setToken(auth);
 
         return NextResponse.redirect(new URL('/profile', request.url));
 

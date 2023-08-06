@@ -1,7 +1,8 @@
 'use client'
 
 import Cookies from 'js-cookie';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '@/components/AuthContext';
 
 export default function Profile() {
     // need to include middleware here to check for auth cookie
@@ -9,10 +10,8 @@ export default function Profile() {
     const [auth, setAuth] = useState<string | null>(null);
 
     useEffect(() => {
-        const type = localStorage.getItem('token_type') || null;
-        const token = localStorage.getItem('access_token') || null;
-        const authFromCookie = `${type} ${token}`;
-        setAuth(authFromCookie);
+        const { token } = useContext(AuthContext);
+        setAuth(token);
     }, []);
 
     return (
