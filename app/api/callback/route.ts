@@ -25,7 +25,12 @@ export async function GET(request: NextRequest) {
         redirect_uri: process.env.REDIRECT_URI
     });
 
-    const headers = {
+    type HeadersType = {
+        'Content-Type': string;
+        Authorization: string;
+    };
+      
+    const headers: HeadersType = {
         'Content-Type': 'application/x-www-form-urlencoded',
         Authorization: `Basic ${credentials}`,
     };
