@@ -50,7 +50,16 @@ export async function GET(request: NextRequest) {
         const auth = `${token_type} ${access_token}`;
         Cookies.set('Authorization', auth, { httpOnly: true });
 
-        return NextResponse.redirect(new URL('/profile', request.url));
+        // return NextResponse.redirect(new URL('/profile', request.url));
+
+        const newHeaders = new Headers(request.headers)
+        newHeaders.set('auth', auth)
+
+        return NextResponse.next({
+            request:{
+                headers: newHeaders
+            }
+        })
 
     } else {
         return NextResponse.json({ response });

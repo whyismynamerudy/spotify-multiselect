@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import Cookies from 'js-cookie';
+import { cookies } from 'next/headers'
 const querystring = require('querystring');
 
 /**
