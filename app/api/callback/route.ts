@@ -5,8 +5,8 @@ const querystring = require('querystring');
 
 export async function GET(request: NextRequest) {
 
-    console.log('Request Object:', request);
-    console.log('Headers:', request.headers);
+    // console.log('Request Object:', request);
+    // console.log('Headers:', request.headers);
 
     const url = new URL(request.url)
     const code = url.searchParams.get('code') || null;
@@ -29,6 +29,12 @@ export async function GET(request: NextRequest) {
         'Content-Type': 'application/x-www-form-urlencoded',
         Authorization: `Basic ${credentials}`,
     };
+
+    console.log(`
+        Credentials: ${credentials},
+        RequestBody: ${requestBody},
+        Headers: ${headers}
+    `)
 
     // axios.post('https://accounts.spotify.com/api/token', {
     //     grant_type: 'authorization_code',
@@ -54,10 +60,10 @@ export async function GET(request: NextRequest) {
     //         Authorization: `Basic ${new (Buffer as any).from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64')}`,
     //     },
     // })
-    axios
-    .post('https://accounts.spotify.com/api/token', requestBody, { headers })
-    .then((response: any) => {
-        console.log("In Response Section of callback, gotten response: ", response.data)
+    // axios
+    // .post('https://accounts.spotify.com/api/token', requestBody, { headers })
+    // .then((response: any) => {
+    //     console.log("In Response Section of callback, gotten response: ", response.data)
         // if (response.status === 200) {
 
         //     const { access_token, token_type } = response.data;
@@ -69,9 +75,9 @@ export async function GET(request: NextRequest) {
         // } else {
         //     return NextResponse.json({ response });
         // }
-    })
-    .catch((err: any) => {
-        console.log(`There has been an error in the callback, ${err}`)
-        return NextResponse.json({ err });
-    })
+    // })
+    // .catch((err: any) => {
+    //     console.log(`There has been an error in the callback, ${err}`)
+    //     return NextResponse.json({ err });
+    // })
 }
