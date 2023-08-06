@@ -2,23 +2,20 @@
 
 import { useEffect, useState } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
-import {useRouter} from 'next/router';
 import Landing from '@/components/Landing/landing'
 import Image from 'next/image'
 
 export default function Home() {
 
-  const [url, setUrl] = useState<string>("");
-  const router = useRouter()
+  const params = useSearchParams();
+  const access_token = params.get('access_token');
+  const token_type = params.get('token_type');
 
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
+  const queries = `?access_token=${access_token}&token_type=${token_type}`;
 
-  useEffect(() => {
-    setUrl(`${pathname}?${searchParams}`);
-  }, [pathname, searchParams]);
+  const url = "https://spotify-multiselect.vercel.app/" + (access_token ? queries : "")
 
   return (
-    <Landing url={router.asPath} />
+    <Landing url={url} />
   )
 }
