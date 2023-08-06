@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-const axios = require('axios');
+import axios from 'axios';
 import Cookies from 'js-cookie';
 const querystring = require('querystring');
 
@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
         }),
         headers: {
             'content-type': 'application/x-www-form-urlencoded',
-            Authorization: `Basic ${Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64')}`,
+            'Authorization': `Basic ${Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64')}`,
         },
     })
     .then((response: any) => {
