@@ -14,6 +14,7 @@ export default function Landing({ url }: LandingProps) {
     const { token, setToken } = useContext(AuthContext)
 
     useEffect(() => {
+        console.log("On Landing page, url: ", url)
         const query = new URL(url);
         const access_token = query.searchParams.get('access_token') || null;
         const token_type = query.searchParams.get('token_type') || null;
