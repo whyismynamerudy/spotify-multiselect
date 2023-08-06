@@ -9,7 +9,9 @@ export default function Profile() {
     const [auth, setAuth] = useState<string | null>(null);
 
     useEffect(() => {
-        const authFromCookie = Cookies.get('Authorization') || null;
+        const type = localStorage.getItem('token_type') || null;
+        const token = localStorage.getItem('access_token') || null;
+        const authFromCookie = `${type} ${token}`;
         setAuth(authFromCookie);
     }, []);
 

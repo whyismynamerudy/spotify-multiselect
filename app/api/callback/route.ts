@@ -48,18 +48,12 @@ export async function GET(request: NextRequest) {
     if (response.status === 200) {
         const { access_token, token_type } = response.data;
         const auth = `${token_type} ${access_token}`;
-        Cookies.set('Authorization', auth, { httpOnly: true });
+        // Cookies.set('Authorization', auth, { httpOnly: true });
+        // store it in local storage instead.
+        localStorage.setItem('access_token', access_token);
+        localStorage.setItem('token_type', token_type);
 
-        // return NextResponse.redirect(new URL('/profile', request.url));
-
-        const newHeaders = new Headers(request.headers)
-        newHeaders.set('auth', auth)
-
-        return NextResponse.next({
-            request:{
-                headers: newHeaders
-            }
-        })
+        return NextResponse.redirect(new URL('/profile', request.url));
 
     } else {
         return NextResponse.json({ response });
