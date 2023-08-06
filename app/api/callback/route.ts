@@ -50,7 +50,7 @@ export async function GET(request: NextRequest) {
         const auth = `${token_type} ${access_token}`;
         Cookies.set('Authorization', auth);
 
-        return NextResponse.redirect('/profile');
+        return NextResponse.redirect(new URL('/profile', request.url));
 
     } else {
         return NextResponse.json({ response });
