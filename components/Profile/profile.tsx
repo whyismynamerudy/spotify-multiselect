@@ -10,7 +10,7 @@ export default function Profile() {
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
             <p className="text-slate-50">
-                {token || "nothing to see here"}
+                Welcome, ${token}
             </p>
         </main>
     )
