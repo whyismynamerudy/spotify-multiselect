@@ -38,8 +38,24 @@ export async function GET(request: NextRequest) {
     console.log(`
         Credentials: ${credentials},
         RequestBody: ${requestBody},
-        Headers: ${headers}
+        Headers: ${JSON.stringify(headers)}
     `)
+
+    const response = await axios.post('https://accounts.spotify.com/api/token', requestBody, { headers });
+
+    console.log("In Response Section of callback, gotten response: ", response);
+
+    if (response.status === 200) {
+        const { access_token, token_type } = response.data;
+        const auth = `${token_type} ${access_token}`;
+        Cookies.set('Authorization', auth);
+
+        return NextResponse.redirect('/profile');
+
+    } else {
+        return NextResponse.json({ response });
+    }
+
 
     // axios.post('https://accounts.spotify.com/api/token', {
     //     grant_type: 'authorization_code',
@@ -65,26 +81,25 @@ export async function GET(request: NextRequest) {
     //         Authorization: `Basic ${new (Buffer as any).from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64')}`,
     //     },
     // })
-    axios
-    .post('https://accounts.spotify.com/api/token', requestBody, { headers })
-    .then((response: any) => {
-        console.log("In Response Section of callback, gotten response: ", response.data)
-        if (response.status === 200) {
+    
+    // .then((response: any) => {
+    //     console.log("In Response Section of callback, gotten response: ", response.data)
+    //     if (response.status === 200) {
 
-            const { access_token, token_type } = response.data;
-            const auth = `${token_type} ${access_token}`;
-            Cookies.set('Authorization', auth);
+    //         const { access_token, token_type } = response.data;
+    //         const auth = `${token_type} ${access_token}`;
+    //         Cookies.set('Authorization', auth);
 
-            return NextResponse.redirect('/profile');
+    //         return NextResponse.redirect('/profile');
 
-        } else {
-            return NextResponse.json({ response });
-        }
-    })
-    .catch((err: any) => {
-        console.log(`There has been an error in the callback, ${err}`)
-        return NextResponse.json({ err });
-    })
+    //     } else {
+    //         return NextResponse.json({ response });
+    //     }
+    // })
+    // .catch((err: any) => {
+    //     console.log(`There has been an error in the callback, ${err}`)
+    //     return NextResponse.json({ err });
+    // })
 
-    return NextResponse.json({ 'success': "ok" })
+    // return NextResponse.json({ 'success': "ok" })
 }
