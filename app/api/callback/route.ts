@@ -17,29 +17,29 @@ export async function GET(request: NextRequest) {
             code: ${code}
     `)
 
-    const credentials = Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64');
+    // const credentials = Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64');
 
-    const requestBody = querystring.stringify({
-        grant_type: "authorization_code",
-        code: code,
-        redirect_uri: process.env.REDIRECT_URI
-    });
+    // const requestBody = querystring.stringify({
+    //     grant_type: "authorization_code",
+    //     code: code,
+    //     redirect_uri: process.env.REDIRECT_URI
+    // });
 
-    type HeadersType = {
-        'Content-Type': string;
-        Authorization: string;
-    };
+    // type HeadersType = {
+    //     'Content-Type': string;
+    //     Authorization: string;
+    // };
       
-    const headers: HeadersType = {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: `Basic ${credentials}`,
-    };
+    // const headers: HeadersType = {
+    //     'Content-Type': 'application/x-www-form-urlencoded',
+    //     Authorization: `Basic ${credentials}`,
+    // };
 
-    console.log(`
-        Credentials: ${credentials},
-        RequestBody: ${requestBody},
-        Headers: ${headers}
-    `)
+    // console.log(`
+    //     Credentials: ${credentials},
+    //     RequestBody: ${requestBody},
+    //     Headers: ${headers}
+    // `)
 
     // axios.post('https://accounts.spotify.com/api/token', {
     //     grant_type: 'authorization_code',
