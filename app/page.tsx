@@ -7,7 +7,7 @@ import Image from 'next/image'
 
 export default function Home() {
 
-  const [url, setUrl] = useState<string | null>(null);
+  const [url, setUrl] = useState<string>("");
 
   const pathname = usePathname()
   const searchParams = useSearchParams()
