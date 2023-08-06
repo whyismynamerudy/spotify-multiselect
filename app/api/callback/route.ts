@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
     console.log('Headers:', request.headers);
 
     const url = new URL(request.url)
-    const code = url.searchParams.get('code')
+    const code = url.searchParams.get('code') || null;
 
     console.log(`
         Returning from Spotify:
@@ -17,17 +17,30 @@ export async function GET(request: NextRequest) {
             code: ${code}
     `)
 
-    axios.post('https://accounts.spotify.com/api/token', {
-        grant_type: 'authorization_code',
+    const credentials = Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64');
+
+    const requestBody = querystring.stringify({
+        grant_type: "authorization_code",
         code: code,
         redirect_uri: process.env.REDIRECT_URI
-        }, {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                Authorization: `Basic ${new (Buffer as any).from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64')}`,
-            }
-        }
-    )
+    });
+
+    const headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: `Basic ${credentials}`,
+    };
+
+    // axios.post('https://accounts.spotify.com/api/token', {
+    //     grant_type: 'authorization_code',
+    //     code: url_code,
+    //     redirect_uri: process.env.REDIRECT_URI
+    //     }, {
+    //         headers: {
+    //             'Content-Type': 'application/x-www-form-urlencoded',
+    //             Authorization: `Basic ${new (Buffer as any).from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64')}`,
+    //         }
+    //     }
+    // )
     // axios({
     //     method: 'post',
     //     url: 'https://accounts.spotify.com/api/token',
@@ -41,19 +54,21 @@ export async function GET(request: NextRequest) {
     //         Authorization: `Basic ${new (Buffer as any).from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64')}`,
     //     },
     // })
+    axios
+    .post('https://accounts.spotify.com/api/token', requestBody, { headers })
     .then((response: any) => {
-        console.log("In Response Section of callback")
-        if (response.status === 200) {
+        console.log("In Response Section of callback, gotten response: ", response.data)
+        // if (response.status === 200) {
 
-            const { access_token, token_type } = response.data;
-            const auth = `${token_type} ${access_token}`;
-            Cookies.set('Authorization', auth);
+        //     const { access_token, token_type } = response.data;
+        //     const auth = `${token_type} ${access_token}`;
+        //     Cookies.set('Authorization', auth);
 
-            return NextResponse.redirect('/profile');
+        //     return NextResponse.redirect('/profile');
 
-        } else {
-            return NextResponse.json({ response });
-        }
+        // } else {
+        //     return NextResponse.json({ response });
+        // }
     })
     .catch((err: any) => {
         console.log(`There has been an error in the callback, ${err}`)
