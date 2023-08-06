@@ -1,7 +1,6 @@
 'use client'
 
-import Cookies from 'js-cookie';
-import { useEffect, useState, useContext } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '@/components/AuthContext';
 
 export default function Profile() {

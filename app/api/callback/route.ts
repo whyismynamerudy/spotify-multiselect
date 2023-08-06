@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { useContext } from 'react';
-import { AuthContext } from '@/components/AuthContext';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 const querystring = require('querystring');
 
 export async function GET(request: NextRequest) {
@@ -49,14 +46,13 @@ export async function GET(request: NextRequest) {
 
     if (response.status === 200) {
         const { access_token, token_type } = response.data;
-        const auth = `${token_type} ${access_token}`;
-        // Cookies.set('Authorization', auth, { httpOnly: true });
-        // using context API
 
-        const { setToken } = useContext(AuthContext);
-        setToken(auth);
+        const qstring = querystring.stringify({
+            "access_token": access_token,
+            "token_type": token_type
+        });
 
-        return NextResponse.redirect(new URL('/profile', request.url));
+        return NextResponse.redirect(new URL(`/?${qstring}`, request.url));
 
     } else {
         return NextResponse.json({ response });
