@@ -5,6 +5,9 @@ const querystring = require('querystring');
 
 export async function GET(request: NextRequest) {
 
+    console.log('Request Object:', request);
+    console.log('Headers:', request.headers);
+
     const url = new URL(request.url)
     const code = url.searchParams.get('code')
 
