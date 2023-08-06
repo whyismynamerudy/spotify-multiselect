@@ -17,6 +17,8 @@ export async function GET(request: NextRequest) {
             code: ${code}
     `)
 
+    return NextResponse.json({ 'success': "ok" })
+
     // const credentials = Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64');
 
     // const requestBody = querystring.stringify({
