@@ -1,6 +1,46 @@
-import { NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
+import Cookies from 'js-cookie';
+const querystring = require('querystring');
 
-export async function GET(request: Request) {
-    console.log("logging into spotify");
-    return NextResponse.redirect(`https://accounts.spotify.com/authorize?client_id=${process.env.CLIENT_ID}&response_type=code&redirect_uri=${process.env.REDIRECT_URI}`);
+/**
+ * Generates a random string containing numbers and letters
+ * @param  {number} length The length of the string
+ * @return {string} The generated string
+ */
+const generateRandomString = (length: number) => {
+    let text = '';
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (let i = 0; i < length; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+};
+
+
+export async function GET(request: NextRequest) {
+
+    console.log("Re-routing to Spotify for Authorization");
+
+    const state = generateRandomString(16);
+    const scope = `
+    user-read-private 
+    user-read-email
+    user-library-read 
+    playlist-read-private 
+    playlist-read-collaborative 
+    playlist-modify-private 
+    playlist-modify-public
+    `;
+
+    Cookies.set('spotify_auth_state', state)
+
+    const queryParams = querystring.stringify({
+        client_id: process.env.CLIENT_ID,
+        response_type: 'code',
+        redirect_uri: process.env.REDIRECT_URI,
+        state: state,
+        scope: scope,
+    });
+
+    return NextResponse.redirect(`https://accounts.spotify.com/authorize?${queryParams}`);
 }
