@@ -14,20 +14,32 @@ export async function GET(request: NextRequest) {
             code: ${code}
     `)
 
-    axios({
-        method: 'post',
-        url: 'https://accounts.spotify.com/api/token',
-        data: querystring.stringify({
-            grant_type: 'authorization_code',
-            code: code,
-            redirect_uri: process.env.REDIRECT_URI
-        }),
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            Authorization: `Basic ${new (Buffer as any).from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64')}`,
-        },
-    })
+    axios.post('https://accounts.spotify.com/api/token', {
+        grant_type: 'authorization_code',
+        code: code,
+        redirect_uri: process.env.REDIRECT_URI
+        }, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                Authorization: `Basic ${new (Buffer as any).from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64')}`,
+            }
+        }
+    )
+    // axios({
+    //     method: 'post',
+    //     url: 'https://accounts.spotify.com/api/token',
+    //     data: querystring.stringify({
+    //         grant_type: 'authorization_code',
+    //         code: code,
+    //         redirect_uri: process.env.REDIRECT_URI
+    //     }),
+    //     headers: {
+    //         'Content-Type': 'application/x-www-form-urlencoded',
+    //         Authorization: `Basic ${new (Buffer as any).from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64')}`,
+    //     },
+    // })
     .then((response: any) => {
+        console.log("In Response Section of callback")
         if (response.status === 200) {
 
             const { access_token, token_type } = response.data;
@@ -41,6 +53,7 @@ export async function GET(request: NextRequest) {
         }
     })
     .catch((err: any) => {
+        console.log(`There has been an error in the callback, ${err}`)
         return NextResponse.json({ err });
     })
 }
