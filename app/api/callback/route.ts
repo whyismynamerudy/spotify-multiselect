@@ -23,8 +23,8 @@ export async function GET(request: NextRequest) {
             redirect_uri: process.env.REDIRECT_URI
         }),
         headers: {
-            'content-type': 'application/x-www-form-urlencoded',
-            'Authorization': `Basic ${Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64')}`,
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: `Basic ${Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64')}`,
         },
     })
     .then((response: any) => {
