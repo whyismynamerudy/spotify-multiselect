@@ -1,3 +1,5 @@
+'use client'
+
 import { useContext, useEffect } from 'react';
 import { AuthContext } from '@/components/AuthContext';
 import Login from '../Login/login';
