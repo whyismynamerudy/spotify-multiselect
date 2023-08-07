@@ -27,6 +27,8 @@ export default function Landing({ url }: LandingProps) {
             const storedToken = localStorage.getItem('auth_token');
             setToken(storedToken)
         }
+
+        console.log("From localStorage set token to ", token);
     }, []);
 
     return (
