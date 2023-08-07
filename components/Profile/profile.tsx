@@ -17,16 +17,18 @@ export default function ProfileComp({ token }: ProfileProps) {
             redirect('/')
         }
 
-        const apiCall = async () => {
-            const response = await axios.get('https://spotify-multiselect.vercel.app/api/me', {
-                headers: {
-                    'token': token
-                }
-            })
-            setData(JSON.stringify(response.data))
-        }
+        console.log("In profile, token is: ", token);
 
-        apiCall();
+        // const apiCall = async () => {
+        //     const response = await axios.get('https://spotify-multiselect.vercel.app/api/me', {
+        //         headers: {
+        //             'token': token
+        //         }
+        //     })
+        //     setData(JSON.stringify(response.data))
+        // }
+
+        // apiCall();
         
     }, [])
 
