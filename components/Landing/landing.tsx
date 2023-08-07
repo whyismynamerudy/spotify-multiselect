@@ -21,10 +21,10 @@ export default function Landing({ url }: LandingProps) {
 
         if (access_token) {
             const auth = `${token_type} ${access_token}`;
-            window.localStorage.setItem('auth_token', auth);
+            localStorage.setItem('auth_token', auth);
             setToken(auth)
         } else {
-            const storedToken = window.localStorage.getItem('auth_token');
+            const storedToken = localStorage.getItem('auth_token');
             setToken(storedToken)
         }
 

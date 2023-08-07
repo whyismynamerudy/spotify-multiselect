@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation'
 
 export default function ProfileComp() {
     // need to include middleware here to check for auth cookie
-    const token = window.localStorage.getItem('auth_token')
+    const token = localStorage.getItem('auth_token')
 
     useEffect(()=>{
         if (!token) {
