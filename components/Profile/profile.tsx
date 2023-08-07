@@ -1,13 +1,17 @@
 'use client'
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { redirect } from 'next/navigation'
 
 export default function ProfileComp() {
     // need to include middleware here to check for auth cookie
-    const token = localStorage.getItem('auth_token')
+
+    const [ token, setToken ] = useState<string | null>(null)
 
     useEffect(()=>{
+
+        setToken(localStorage.getItem('access_token'))
+
         if (!token) {
             redirect('/')
         }
