@@ -27,15 +27,11 @@ export default function Landing({ url }: LandingProps) {
             const storedToken = localStorage.getItem('auth_token');
             setToken(storedToken)
         }
-
-        if (token) {
-            redirect('/profile')
-        }
     }, []);
 
     return (
         <>
-            { token ? <ProfileComp /> : <Login /> }
+            { token ? <ProfileComp token={token} /> : <Login /> }
         </>
     )
 }

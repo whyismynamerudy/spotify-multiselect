@@ -3,15 +3,14 @@
 import { useEffect, useState } from 'react';
 import { redirect } from 'next/navigation'
 
-export default function ProfileComp() {
+interface ProfileProps {
+    token: string; // Add the url prop
+}
+
+export default function ProfileComp({ token }: ProfileProps) {
     // need to include middleware here to check for auth cookie
 
-    const [ token, setToken ] = useState<string | null>(null)
-
     useEffect(()=>{
-
-        setToken(localStorage.getItem('access_token'))
-
         if (!token) {
             redirect('/')
         }
