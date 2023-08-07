@@ -33,7 +33,7 @@ export default function Landing({ url }: LandingProps) {
 
     return (
         <>
-            { token ? <ProfileComp token={token} /> : <Login /> }
+            { token ? <ProfileComp token={token} setToken={setToken}/> : <Login /> }
         </>
     )
 }

@@ -6,15 +6,17 @@ import axios from 'axios';
 
 interface ProfileProps {
     token: string; 
+    setToken: (token: string | null) => void;
 }
 
-export default function ProfileComp({ token }: ProfileProps) {
+export default function ProfileComp({ token, setToken }: ProfileProps) {
 
     const [data, setData] = useState<string | null>(null);
 
     const handleLogOut = () => {
         localStorage.clear()
-        redirect('/');
+        console.log("cleared local storage");
+        setToken(null);
     }
 
     useEffect(()=>{
