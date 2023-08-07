@@ -42,8 +42,6 @@ export async function GET(request: NextRequest) {
 
     const response = await axios.post('https://accounts.spotify.com/api/token', requestBody, { headers });
 
-    // console.log("In Response Section of callback, gotten response: ", response);
-
     if (response.status === 200) {
         const { access_token, token_type } = response.data;
 

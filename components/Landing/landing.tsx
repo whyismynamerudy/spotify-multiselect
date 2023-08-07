@@ -1,9 +1,9 @@
 'use client'
 
-import { useContext, useEffect } from 'react';
-import { AuthContext } from '@/components/AuthContext';
+import { useState, useEffect } from 'react';
 import Login from '../Login/login';
-import Profile from '../Profile/profile';
+import ProfileComp from '../Profile/profile';
+import { redirect } from 'next/navigation'
 
 interface LandingProps {
     url: string; // Add the url prop
@@ -11,7 +11,7 @@ interface LandingProps {
 
 export default function Landing({ url }: LandingProps) {
 
-    const { token, setToken } = useContext(AuthContext)
+    const [ token, setToken ] = useState<string | null>(null)
 
     useEffect(() => {
         console.log("On Landing page, url: ", url)
@@ -21,13 +21,21 @@ export default function Landing({ url }: LandingProps) {
 
         if (access_token) {
             const auth = `${token_type} ${access_token}`;
+            window.localStorage.setItem('auth_token', auth);
             setToken(auth)
+        } else {
+            const storedToken = window.localStorage.getItem('auth_token');
+            setToken(storedToken)
+        }
+
+        if (token) {
+            redirect('/profile')
         }
     }, []);
 
     return (
         <>
-            { token ? <Profile /> : <Login /> }
+            { token ? <ProfileComp /> : <Login /> }
         </>
     )
 }

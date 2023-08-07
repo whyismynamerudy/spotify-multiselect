@@ -1,6 +1,4 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import Cookies from 'js-cookie';
-import { cookies } from 'next/headers'
 const querystring = require('querystring');
 
 /**
@@ -32,8 +30,6 @@ export async function GET(request: NextRequest) {
     playlist-modify-private 
     playlist-modify-public
     `;
-
-    Cookies.set('spotify_auth_state', state)
 
     const queryParams = querystring.stringify({
         client_id: process.env.CLIENT_ID,

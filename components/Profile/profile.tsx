@@ -1,11 +1,17 @@
 'use client'
 
-import { useContext } from 'react';
-import { AuthContext } from '@/components/AuthContext';
+import { useEffect } from 'react';
+import { redirect } from 'next/navigation'
 
-export default function Profile() {
+export default function ProfileComp() {
     // need to include middleware here to check for auth cookie
-    const { token } = useContext(AuthContext);
+    const token = window.localStorage.getItem('auth_token')
+
+    useEffect(()=>{
+        if (!token) {
+            redirect('/')
+        }
+    }, [])
 
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">

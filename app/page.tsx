@@ -1,9 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import Landing from '@/components/Landing/landing'
-import Image from 'next/image'
 
 export default function Home() {
 
