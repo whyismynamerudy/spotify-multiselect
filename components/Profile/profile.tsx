@@ -12,6 +12,11 @@ export default function ProfileComp({ token }: ProfileProps) {
 
     const [data, setData] = useState<string | null>(null);
 
+    const handleLogOut = () => {
+        localStorage.clear()
+        redirect('/');
+    }
+
     useEffect(()=>{
         if (!token) {
             redirect('/')
@@ -33,10 +38,17 @@ export default function ProfileComp({ token }: ProfileProps) {
     }, [])
 
     return (
+        <>
+        <nav className="min-w-full absolute">
+            <button className="text-slate-50 rounded-md bg-green-600" onClick={handleLogOut}>
+                Log Out
+            </button>
+        </nav>
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
             <p className="text-slate-50">
                 {data}
             </p>
         </main>
+        </>
     )
 }
