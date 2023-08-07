@@ -17,6 +17,7 @@ export default function ProfileComp({ token, setToken }: ProfileProps) {
         localStorage.clear()
         console.log("cleared local storage");
         setToken(null);
+        redirect('/');
     }
 
     useEffect(()=>{
