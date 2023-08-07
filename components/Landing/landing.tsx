@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Login from '../Login/login';
 import ProfileComp from '../Profile/profile';
-import { redirect } from 'next/navigation'
 
 interface LandingProps {
     url: string; // Add the url prop
@@ -33,7 +32,7 @@ export default function Landing({ url }: LandingProps) {
 
     return (
         <>
-            { token ? <ProfileComp token={token} setToken={setToken}/> : <Login /> }
+            { token ? <ProfileComp token={token} setToken={setToken}/> : <Login url={url}/> }
         </>
     )
 }
