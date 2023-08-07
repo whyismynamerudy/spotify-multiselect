@@ -41,8 +41,8 @@ export default function ProfileComp({ token, setToken }: ProfileProps) {
 
     return (
         <>
-        <nav className="min-w-full flex items-end">
-            <button className="text-slate-50 rounded-md bg-green-600 end" onClick={handleLogOut}>
+        <nav className="min-w-full flex flex-row-reverse">
+            <button className="text-slate-50 rounded-md bg-green-600 m-3 p-1" onClick={handleLogOut}>
                 Log Out
             </button>
         </nav>
