@@ -16,6 +16,15 @@ export default function Landing({ url }: LandingProps) {
     const [ storedAt, setStoredAt ] = useState<number>(0)
     const [ refresh, setRefresh ] = useState<string | null>(null)
 
+    const refresh_req = async (refresh_token: string) => {
+        console.log("this bitch called")
+        const newres = await axios.get(`https://spotify-multiselect.vercel.app/api/refresh_token?refresh_token=${refresh_token}`)
+        
+        setToken(`${newres.data.token_type} ${newres.data.access_token}`)
+        setExpire(newres.data.expires_in)
+        setStoredAt(new Date().getTime())
+    }
+
     useEffect(() => {
         const query = new URL(url);
         const access_token = query.searchParams.get('access_token') || null;
@@ -23,15 +32,6 @@ export default function Landing({ url }: LandingProps) {
         const expires_in = query.searchParams.get('expires_in') || null;
         const stored_at = query.searchParams.get('stored_at') || null;
         const refresh_token = query.searchParams.get('refresh_token') || null;
-
-        const refresh_req = async () => {
-            console.log("this bitch called")
-            const newres = await axios.get(`https://spotify-multiselect.vercel.app/api/refresh_token?refresh_token=${refresh_token}`)
-            
-            setToken(`${newres.data.token_type} ${newres.data.access_token}`)
-            setExpire(newres.data.expires_in)
-            setStoredAt(new Date().getTime())
-        }
 
         if (access_token && refresh_token && expires_in && stored_at) {
             const auth = `${token_type} ${access_token}`;
@@ -54,7 +54,9 @@ export default function Landing({ url }: LandingProps) {
             const currTime = new Date().getTime()
             if (currTime > (storedStoredAt + (storedExpiry*1000))) {
                 // refresh token
-                refresh_req()
+                if (storedRefresh) {
+                    refresh_req(storedRefresh)
+                }
             } else {
                 setToken(storedToken)
                 setExpire(storedExpiry)

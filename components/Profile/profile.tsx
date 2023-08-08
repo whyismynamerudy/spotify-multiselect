@@ -72,7 +72,7 @@ export default function ProfileComp({ token, setToken }: ProfileProps) {
                 Log Out
             </button>
         </nav>
-        <main className="grid grid-cols-3 gap-4 p-4 h-full">
+        <main className="grid grid-cols-3 gap-4 p-4 h-full min-h-full">
             {/* First Column */}
             <div className="col-span-1">
                 {user && <UserDetails user={user}/>}
