@@ -14,7 +14,7 @@ export default function Landing({ url }: LandingProps) {
     const [ token, setToken ] = useState<string | null>(null)
     const [ expire, setExpire ] = useState<number>(0)
     const [ storedAt, setStoredAt ] = useState<number>(0)
-    const [res, setRes] = useState<object>({});
+    const [ refresh, setRefresh ] = useState<string | null>(null)
 
     useEffect(() => {
         const query = new URL(url);
@@ -26,28 +26,44 @@ export default function Landing({ url }: LandingProps) {
 
         const refresh_req = async () => {
             const newres = await axios.get(`https://spotify-multiselect.vercel.app/api/refresh_token?refresh_token=${refresh_token}`)
-            console.log("refresh req called, returning ", newres.data);
-            setRes(newres.data)
+            
+            setToken(`${newres.data.token_type} ${newres.data.access_token}`)
+            setExpire(newres.data.expires_in)
+            setStoredAt(new Date().getTime())
         }
 
-        if (refresh_token) {
-            refresh_req();
-        }
-
-        if (access_token) {
+        if (access_token && refresh_token && expires_in && stored_at) {
             const auth = `${token_type} ${access_token}`;
             localStorage.setItem('auth_token', auth);
+            localStorage.setItem('refresh_token', refresh_token);
+            localStorage.setItem('expires_in', expires_in);
+            localStorage.setItem('stored_at', stored_at);
             setToken(auth)
+            setExpire(Number(expires_in))
+            setStoredAt(Number(stored_at))
+            setRefresh(refresh_token)
         } else {
-            const storedToken = localStorage.getItem('auth_token');
-            setToken(storedToken)
+            let storedToken = localStorage.getItem('auth_token');
+            let storedRefresh = localStorage.getItem('refresh_token');
+            let storedExpiry = Number(localStorage.getItem('expires_in'));
+            let storedStoredAt = Number(localStorage.getItem('stored_at'));
+
+            const currTime = new Date().getTime()
+            if (currTime > (storedStoredAt + (storedExpiry*1000))) {
+                // refresh token
+                refresh_req()
+            } else {
+                setToken(storedToken)
+                setExpire(storedExpiry)
+                setStoredAt(storedStoredAt)
+            }
+            setRefresh(storedRefresh)
         }
     }, []);
 
     return (
         <>
             { token ? <ProfileComp token={token} setToken={setToken}/> : <Login url={url}/> }
-            <p className="text-slate-50">{JSON.stringify(res)}</p>
         </>
     )
 }
