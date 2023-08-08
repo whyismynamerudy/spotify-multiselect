@@ -49,6 +49,8 @@ export default function Landing({ url }: LandingProps) {
             let storedExpiry = Number(localStorage.getItem('expires_in'));
             let storedStoredAt = Number(localStorage.getItem('stored_at'));
 
+            console.log("retriving from storage: freresh token ", storedRefresh)
+
             const currTime = new Date().getTime()
             if (currTime > (storedStoredAt + (storedExpiry*1000))) {
                 // refresh token
