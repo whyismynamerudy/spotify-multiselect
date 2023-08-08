@@ -34,13 +34,13 @@ export default function UserDetails({ user }: UserDetailsProps) {
     return(
         <>
             <div className="mb-4">
-                <img src={user.images[0].url} alt="Profile" className="w-16 h-16 rounded-full" />
+                <img src={user.images[1].url} alt="Profile" className="w-16 h-16 rounded-full" />
             </div>
-            <div className="text-lg font-bold">{user.display_name}</div>
-            <div className="text-gray-600">{user.email}</div>
-            <div className="text-gray-600">Followers: {user.followers.total}</div>
-            <div className="text-gray-600">Country: {user.country}</div>
-            <div className="text-gray-600">Product Type: {user.product}</div>
+            <div className="text-lg font-bold text-slate-50">{user.display_name}</div>
+            <div className="text-slate-50">{user.email}</div>
+            <div className="text-slate-50">Followers: {user.followers.total}</div>
+            <div className="text-slate-50">Country: {user.country}</div>
+            <div className="text-slate-50">Product Type: {user.product}</div>
         </>
     )
 }
