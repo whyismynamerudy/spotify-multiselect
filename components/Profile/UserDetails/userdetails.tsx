@@ -34,7 +34,7 @@ export default function UserDetails({ user }: UserDetailsProps) {
     return(
         <>
             <div className="mb-4">
-                <img src={user.images[1].url} alt="Profile" className="w-16 h-16 rounded-full" />
+                <img src={user.images[1].url} alt="Profile" className="w-20 h-20 rounded-full" />
             </div>
             <div className="text-lg font-bold text-slate-50">{user.display_name}</div>
             <div className="text-slate-50">{user.email}</div>

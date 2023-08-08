@@ -25,6 +25,8 @@ export async function GET(request: NextRequest) {
 
     // to do
 
+    console.log('in refresh_token route, cabout to req from spotify')
+
     const response = await axios.post('https://accounts.spotify.com/api/token', requestBody, { headers })
 
     console.log("in refresh_token route, returning: ", response.data)
