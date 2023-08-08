@@ -43,12 +43,15 @@ export async function GET(request: NextRequest) {
     const response = await axios.post('https://accounts.spotify.com/api/token', requestBody, { headers });
 
     if (response.status === 200) {
-        const { access_token, token_type, expires_in } = response.data;
+        const { access_token, token_type, expires_in, refresh_token } = response.data;
+        const currTime = new Date().getTime();
 
         const qstring = querystring.stringify({
             "access_token": access_token,
             "token_type": token_type,
-            "expires_in": expires_in
+            "expires_in": expires_in,
+            "stored_at": currTime,
+            "refresh_token": refresh_token
         });
 
         return NextResponse.redirect(new URL(`/?${qstring}`, request.url));

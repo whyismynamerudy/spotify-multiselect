@@ -27,6 +27,6 @@ export async function GET(request: NextRequest) {
 
     const response = await axios.post('https://accounts.spotify.com/api/token', requestBody, { headers })
 
-    return new NextResponse()
+    return NextResponse.json(response.data)
 
 }

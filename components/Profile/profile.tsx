@@ -11,7 +11,7 @@ interface ProfileProps {
 
 export default function ProfileComp({ token, setToken }: ProfileProps) {
 
-    const [data, setData] = useState<string | null>(null);
+    const [user, setUser] = useState<object | null>(null);
 
     const handleLogOut = () => {
         localStorage.clear()
@@ -32,7 +32,7 @@ export default function ProfileComp({ token, setToken }: ProfileProps) {
                     Authorization: token,
                 }
             })
-            setData(JSON.stringify(response.data))
+            setUser(response.data)
         }
 
         apiCall();
@@ -48,7 +48,7 @@ export default function ProfileComp({ token, setToken }: ProfileProps) {
         </nav>
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
             <p className="text-slate-50">
-                {data}
+                {JSON.stringify(user)}
             </p>
         </main>
         </>
