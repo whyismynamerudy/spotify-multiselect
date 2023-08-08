@@ -26,8 +26,8 @@ export default function Landing({ url }: LandingProps) {
 
         const refresh_req = async () => {
             const newres = await axios.get(`https://spotify-multiselect.vercel.app/api/refresh_token?refresh_token=${refresh_token}`)
-            console.log("refresh req called, returning ", newres);
-            setRes(newres)
+            console.log("refresh req called, returning ", newres.data);
+            setRes(newres.data)
         }
 
         if (refresh_token) {
