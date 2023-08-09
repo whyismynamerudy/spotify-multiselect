@@ -66,19 +66,19 @@ export default function ProfileComp({ token, setToken }: ProfileProps) {
     }, [])
 
     return (
-        <>
+        <div className="h-screen min-h-screen">
         <nav className="min-w-full flex flex-row-reverse">
             <button className="text-slate-50 rounded-md bg-green-600 m-3 p-1" onClick={handleLogOut}>
                 Log Out
             </button>
         </nav>
-        <main className="grid grid-cols-3 gap-4 p-4 h-screen min-h-screen">
+        <main className="grid grid-cols-3 gap-4 p-4 h-full">
             {/* First Column */}
             <div className="col-span-1 m-auto">
                 {user && <UserDetails user={user}/>}
             </div>
             <div className="col-span-2 bg-green-500"></div>
         </main>
-        </>
+        </div>
     )
 }
