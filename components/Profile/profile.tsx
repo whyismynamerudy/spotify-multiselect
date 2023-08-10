@@ -1,39 +1,43 @@
 'use client'
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useAppContext } from "@/components/ContextAPI/provider"
 import { redirect } from 'next/navigation'
 import UserDetails from './UserDetails/userdetails';
 import axios from 'axios';
-import { User } from '@/utils/types';
 
-interface ProfileProps {
-    token: string; 
-    setToken: (token: string | null) => void;
-}
+// interface ProfileProps {
+//     token: string; 
+//     setToken: (token: string | null) => void;
+// }
 
 
-export default function ProfileComp({ token, setToken }: ProfileProps) {
+export default function ProfileComp() {
 
-    const [user, setUser] = useState<User | null>(null);
+    const { user, setUser, token, setToken, test } = useAppContext();
 
     const handleLogOut = () => {
         localStorage.clear()
         console.log("cleared local storage");
         setToken(null);
+        redirect('/')
+    }
+
+    const apiCall = async () => {
+        const response = await axios.get('https://api.spotify.com/v1/me', {
+            headers: {
+                Authorization: token,
+            }
+        })
+        setUser(response.data)
     }
 
     useEffect(()=>{
+        console.log('test is: ', test)
+        console.log('token is: ', token)
         if (!token) {
+            console.log('token not detected')
             redirect('/')
-        }
-
-        const apiCall = async () => {
-            const response = await axios.get('https://api.spotify.com/v1/me', {
-                headers: {
-                    Authorization: token,
-                }
-            })
-            setUser(response.data)
         }
 
         apiCall();

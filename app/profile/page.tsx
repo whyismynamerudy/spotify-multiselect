@@ -1,16 +1,18 @@
 'use client'
 
+import ProfileComp from "@/components/Profile/profile";
 import { useAppContext } from "@/components/ContextAPI/provider"
+import { useEffect } from "react";
 
 export default function Profile() {
 
-    const { test, expire, storedAt } = useAppContext();
+    const { token, setToken, expire, setExpire, storedAt, setStoredAt, refresh, setRefresh, test } = useAppContext();
+
+    useEffect(() => {
+        console.log("on profile page, test is ", test)
+    }, []);
 
     return (
-        <div className="text-slate-50">
-            <p>Welcome to the profile route, this is temp atm.</p>
-            <p>{test}</p>
-            <p>Current Expire: {expire} and Current StoredAt: {storedAt}</p>
-        </div>
+        <ProfileComp />
     )
 }
