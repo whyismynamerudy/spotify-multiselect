@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, ReactNode, createContext, useContext } from 'react';
 
 interface ContextType {
