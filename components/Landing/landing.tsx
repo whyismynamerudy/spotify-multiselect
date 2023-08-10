@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useAppContext } from "@/components/ContextAPI/provider"
 import Login from '../Login/login';
 import ProfileComp from '../Profile/profile';
 import axios from 'axios'
@@ -11,10 +12,7 @@ interface LandingProps {
 
 export default function Landing({ url }: LandingProps) {
 
-    const [ token, setToken ] = useState<string | null>(null)
-    const [ expire, setExpire ] = useState<number>(0)
-    const [ storedAt, setStoredAt ] = useState<number>(0)
-    const [ refresh, setRefresh ] = useState<string | null>(null)
+    const { token, setToken, expire, setExpire, storedAt, setStoredAt, refresh, setRefresh } = useAppContext();
 
     const refresh_req = async (refresh_token: string) => {
         console.log("this bitch called")
@@ -68,7 +66,7 @@ export default function Landing({ url }: LandingProps) {
 
     return (
         <>
-            { token ? <ProfileComp token={token} setToken={setToken}/> : <Login url={url}/> }
+            { token ? <ProfileComp /> : <Login url={url}/> }
         </>
     )
 }

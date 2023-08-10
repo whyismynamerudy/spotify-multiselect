@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, ReactNode, createContext, useContext } from 'react';
+import { User } from '@/utils/types';
 
 interface ContextType {
     token: string | null;
@@ -14,6 +15,9 @@ interface ContextType {
 
     refresh: string | null;
     setRefresh: React.Dispatch<React.SetStateAction<string | null>>;
+
+    user: User | null;
+    setUser: React.Dispatch<React.SetStateAction<User | null>>;
 
     test: string
 }
@@ -36,6 +40,7 @@ export function useAppContext(): ContextType {
 
 export default function AppContextProvider({ children }: AppContextProviderProps) {
 
+    const [user, setUser] = useState<User | null>(null);
     const [ token, setToken ] = useState<string | null>(null)
     const [ expire, setExpire ] = useState<number>(0)
     const [ storedAt, setStoredAt ] = useState<number>(0)
@@ -43,7 +48,7 @@ export default function AppContextProvider({ children }: AppContextProviderProps
     const test = "hi there, context is working boss;"
 
     return (
-        <appContext.Provider value = {{ token, setToken, expire, setExpire, storedAt, setStoredAt, refresh, setRefresh, test }}>
+        <appContext.Provider value = {{ user, setUser, token, setToken, expire, setExpire, storedAt, setStoredAt, refresh, setRefresh, test }}>
             { children }
         </appContext.Provider>
     )
