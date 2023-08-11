@@ -1,20 +1,17 @@
 'use client'
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppContext } from "@/components/ContextAPI/provider"
 import { redirect } from 'next/navigation'
 import UserDetails from './UserDetails/userdetails';
+import Playlists from '../Playlist/playlists';
+import { Playlist } from '@/utils/types';
 import axios from 'axios';
-
-// interface ProfileProps {
-//     token: string; 
-//     setToken: (token: string | null) => void;
-// }
-
 
 export default function ProfileComp() {
 
     const { user, setUser, token, setToken, test } = useAppContext();
+    const [ playlistData, setPlaylistData ] = useState<Playlist[] | null>(null)
 
     const handleLogOut = () => {
         localStorage.clear()
@@ -23,13 +20,22 @@ export default function ProfileComp() {
         redirect('/')
     }
 
-    const apiCall = async () => {
+    const getProfileData = async () => {
         const response = await axios.get('https://api.spotify.com/v1/me', {
             headers: {
                 Authorization: token,
             }
         })
         setUser(response.data)
+    }
+
+    const getPlaylistData = async () => {
+        if (!user) {
+            return
+        }
+
+        const response = await axios.get(`https://api.spotify.com/v1/users/${user.id}/playlists?limit=50&offset=0`)
+        setPlaylistData(response.data.items);
     }
 
     useEffect(()=>{
@@ -40,7 +46,8 @@ export default function ProfileComp() {
             redirect('/')
         }
 
-        apiCall();
+        getProfileData();
+        getPlaylistData();
         
     }, [])
 
@@ -57,6 +64,8 @@ export default function ProfileComp() {
                         Log Out
                     </button>
                 </nav>
+                <h3 className="text-slate-50">Playlists</h3>
+                {playlistData && <Playlists items={playlistData} />}
             </div>
         </main>
         </div>
