@@ -49,12 +49,11 @@ export default function ProfileComp() {
         }
 
         getProfileData();
-        getPlaylistData();
     }, [])
 
-    // useEffect(() => {
-    //     getPlaylistData();
-    // }, [user])
+    useEffect(() => {
+        getPlaylistData();
+    }, [user])
 
     return (
         <div className="h-screen min-h-screen">
