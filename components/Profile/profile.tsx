@@ -10,8 +10,15 @@ import axios from 'axios';
 
 export default function ProfileComp() {
 
+    ////////////////////////  STATES ////////////////////////
     const { user, setUser, token, setToken, test } = useAppContext();
     const [ playlistData, setPlaylistData ] = useState<Playlist[] | null>(null)
+    ////////////////////////////////////////////////////////
+
+    ////////////////////////  FUNCTIONS  ////////////////////////
+    const handlePlaylistClick = (id: string) => {
+        console.log(`Clicked playlist with ID: ${id}`);
+    };
 
     const handleLogOut = () => {
         localStorage.clear()
@@ -41,7 +48,9 @@ export default function ProfileComp() {
         })
         setPlaylistData(response.data.items);
     }
+    ////////////////////////////////////////////////////////////
 
+    ////////////////////////  HOOKS  ////////////////////////
     useEffect(()=>{
         if (!token) {
             console.log('token not detected')
@@ -54,6 +63,7 @@ export default function ProfileComp() {
     useEffect(() => {
         getPlaylistData();
     }, [user])
+    ////////////////////////////////////////////////////////
 
     return (
         <div className="h-screen min-h-screen">
@@ -68,9 +78,9 @@ export default function ProfileComp() {
                         Log Out
                     </button>
                 </nav>
-                <h1 className="text-slate-50 mb-2 text-xl">Playlists</h1>
+                <h1 className="text-slate-50 mb-2 text-4xl">Playlists</h1>
                 <div className="overflow-scroll absolute h-[85%] w-full">
-                    {playlistData && <Playlists items={playlistData} />}
+                    {playlistData && <Playlists items={playlistData} onPlaylistClick={handlePlaylistClick}/>}
                 </div>
             </div>
         </main>
