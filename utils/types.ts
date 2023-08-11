@@ -48,7 +48,7 @@ export interface Playlist {
     type: string;
     uri: string;
     display_name: string;
-  }[];
+  };
   public: boolean;
   snapshot_id: string;
   tracks: {

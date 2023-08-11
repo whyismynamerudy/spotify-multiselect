@@ -7,7 +7,7 @@ interface PlaylistsProps {
 
 export default function Playlists({ items }: PlaylistsProps) {
     return (
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-4 overflow-scroll">
           {items.map((playlist) => (
             <PlaylistCard key={playlist.id} {...playlist} />
           ))}
