@@ -41,7 +41,7 @@ export default function ProfileComp() {
             return
         }
 
-        const response = await axios.get(`https://api.spotify.com/v1/users/${user.id}/playlists?limit=50&offset=0`, {
+        const response = await axios.get(`https://api.spotify.com/v1/me/playlists?limit=50&offset=0`, {
             headers: {
                 Authorization: token,
             }
