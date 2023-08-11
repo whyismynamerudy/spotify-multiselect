@@ -34,7 +34,11 @@ export default function ProfileComp() {
             return
         }
 
-        const response = await axios.get(`https://api.spotify.com/v1/users/${user.id}/playlists?limit=50&offset=0`)
+        const response = await axios.get(`https://api.spotify.com/v1/users/${user.id}/playlists?limit=50&offset=0`, {
+            headers: {
+                Authorization: token,
+            }
+        })
         setPlaylistData(response.data.items);
     }
 
@@ -45,11 +49,12 @@ export default function ProfileComp() {
         }
 
         getProfileData();
+        getPlaylistData();
     }, [])
 
-    useEffect(() => {
-        getPlaylistData();
-    }, [user])
+    // useEffect(() => {
+    //     getPlaylistData();
+    // }, [user])
 
     return (
         <div className="h-screen min-h-screen">
