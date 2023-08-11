@@ -62,14 +62,14 @@ export default function ProfileComp() {
             <div className="col-span-1 m-auto">
                 {user && <UserDetails user={user}/>}
             </div>
-            <div className="col-span-2">
+            <div className="col-span-2 relative">
                 <nav className="min-w-full flex flex-row-reverse">
                     <button className="text-slate-50 rounded-md bg-green-600 m-3 p-1" onClick={handleLogOut}>
                         Log Out
                     </button>
                 </nav>
                 <h1 className="text-slate-50 mb-2">Playlists</h1>
-                <div className="overflow-auto">
+                <div className=" overflow-scroll absolute h-[85%]">
                     {playlistData && <Playlists items={playlistData} />}
                 </div>
             </div>
