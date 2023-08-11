@@ -68,8 +68,8 @@ export default function ProfileComp() {
                         Log Out
                     </button>
                 </nav>
-                <h1 className="text-slate-50 mb-2">Playlists</h1>
-                <div className=" overflow-scroll absolute h-[85%]">
+                <h1 className="text-slate-50 mb-2 text-xl">Playlists</h1>
+                <div className="overflow-scroll absolute h-[85%] w-full">
                     {playlistData && <Playlists items={playlistData} />}
                 </div>
             </div>
