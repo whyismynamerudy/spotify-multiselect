@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { useAppContext } from "@/components/ContextAPI/provider"
 import { redirect } from 'next/navigation'
-import { useRouter } from 'next/router'
 import UserDetails from './UserDetails/userdetails';
 import Playlists from '../Playlist/playlists';
 import { Playlist } from '@/utils/types';
@@ -11,9 +10,6 @@ import axios from 'axios';
 import querystring from 'querystring';
 
 export default function ProfileComp() {
-
-    const router = useRouter();
-
     ////////////////////////  STATES ////////////////////////
     const { user, setUser, token, setToken, test } = useAppContext();
     const [ playlistData, setPlaylistData ] = useState<Playlist[] | null>(null)
@@ -22,11 +18,6 @@ export default function ProfileComp() {
     ////////////////////////  FUNCTIONS  ////////////////////////
     const handlePlaylistClick = (id: string) => {
         console.log(`Clicked playlist with ID: ${id}`);
-        const params = querystring.stringify({
-            id: id,
-            token: token
-        })
-        router.push(`https://spotify-multiselect.vercel.app/playlist?${params}`);
     };
 
     const handleLogOut = () => {
@@ -89,7 +80,7 @@ export default function ProfileComp() {
                 </nav>
                 <h1 className="text-slate-50 mb-2 text-4xl">Playlists</h1>
                 <div className="overflow-scroll absolute h-[85%] w-full">
-                    {playlistData && <Playlists items={playlistData} onPlaylistClick={handlePlaylistClick}/>}
+                    {playlistData && token && <Playlists token={token} items={playlistData} onPlaylistClick={handlePlaylistClick}/>}
                 </div>
             </div>
         </main>
