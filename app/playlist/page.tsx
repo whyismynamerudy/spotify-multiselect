@@ -13,7 +13,10 @@ export default function PlaylistPage() {
     const playlist_id = params.get('id');
 
     const getPlaylistData = async () => {
-        const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlist_id}/tracks`, {
+
+        const fields = "next%2Citems%28track%28album%28external_urls%2Cimages%29%2Cartists%28name%29%2Cexternal_urls%2Cname%29%29"
+
+        const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlist_id}/tracks?fields=${fields}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
