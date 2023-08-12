@@ -20,8 +20,10 @@ export default function ProfileComp() {
     const handlePlaylistClick = (id: string) => {
         console.log(`Clicked playlist with ID: ${id}`);
         const params = querystring.stringify({
-            id: id
+            id: id,
+            token: token
         })
+        redirect(`/playlist?${params}`);
     };
 
     const handleLogOut = () => {
