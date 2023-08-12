@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useAppContext } from "@/components/ContextAPI/provider"
 import { redirect } from 'next/navigation'
+import { useRouter } from 'next/router'
 import UserDetails from './UserDetails/userdetails';
 import Playlists from '../Playlist/playlists';
 import { Playlist } from '@/utils/types';
@@ -10,6 +11,8 @@ import axios from 'axios';
 import querystring from 'querystring';
 
 export default function ProfileComp() {
+
+    const router = useRouter();
 
     ////////////////////////  STATES ////////////////////////
     const { user, setUser, token, setToken, test } = useAppContext();
@@ -23,7 +26,7 @@ export default function ProfileComp() {
             id: id,
             token: token
         })
-        redirect(`https://spotify-multiselect.vercel.app/playlist?${params}`);
+        router.push(`https://spotify-multiselect.vercel.app/playlist?${params}`);
     };
 
     const handleLogOut = () => {
