@@ -24,7 +24,7 @@ export default function Playlists({ items, onPlaylistClick, token }: PlaylistsPr
     return (
         <div className="grid grid-cols-2 gap-4 m-auto max-h-full">
           {items.map((playlist) => (
-            <Link href={getHref(playlist.id)}><PlaylistCard key={playlist.id} {...playlist} onPlaylistClick={onPlaylistClick} /></Link>
+            <Link key={playlist.id} href={getHref(playlist.id)}><PlaylistCard key={playlist.id} {...playlist} onPlaylistClick={onPlaylistClick} /></Link>
           ))}
         </div>
       );
