@@ -7,6 +7,7 @@ import UserDetails from './UserDetails/userdetails';
 import Playlists from '../Playlist/playlists';
 import { Playlist } from '@/utils/types';
 import axios from 'axios';
+import querystring from 'querystring';
 
 export default function ProfileComp() {
 
@@ -18,6 +19,9 @@ export default function ProfileComp() {
     ////////////////////////  FUNCTIONS  ////////////////////////
     const handlePlaylistClick = (id: string) => {
         console.log(`Clicked playlist with ID: ${id}`);
+        const params = querystring.stringify({
+            id: id
+        })
     };
 
     const handleLogOut = () => {
@@ -30,7 +34,7 @@ export default function ProfileComp() {
     const getProfileData = async () => {
         const response = await axios.get('https://api.spotify.com/v1/me', {
             headers: {
-                Authorization: token,
+                Authorization: `Bearer ${token}`,
             }
         })
         setUser(response.data)

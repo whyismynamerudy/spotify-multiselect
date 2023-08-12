@@ -18,7 +18,7 @@ export default function Landing({ url }: LandingProps) {
         console.log("this bitch called")
         const newres = await axios.get(`https://spotify-multiselect.vercel.app/api/refresh_token?refresh_token=${refresh_token}`)
         
-        setToken(`${newres.data.token_type} ${newres.data.access_token}`)
+        setToken(newres.data.access_token)
         setExpire(newres.data.expires_in)
         setStoredAt(new Date().getTime())
     }
@@ -32,7 +32,7 @@ export default function Landing({ url }: LandingProps) {
         const refresh_token = query.searchParams.get('refresh_token') || null;
 
         if (access_token && refresh_token && expires_in && stored_at) {
-            const auth = `${token_type} ${access_token}`;
+            const auth = access_token;
             localStorage.setItem('auth_token', auth);
             localStorage.setItem('refresh_token', refresh_token);
             localStorage.setItem('expires_in', expires_in);
