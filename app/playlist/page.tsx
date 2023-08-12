@@ -23,6 +23,9 @@ export default function PlaylistPage() {
     }
 
     useEffect(() => {
+
+        console.log("in playlist route/page!!")
+
         if (!token || !playlist_id) {
             return
         }

@@ -23,7 +23,7 @@ export default function ProfileComp() {
             id: id,
             token: token
         })
-        redirect(`/playlist?${params}`);
+        redirect(`https://spotify-multiselect.vercel.app/playlist?${params}`);
     };
 
     const handleLogOut = () => {
