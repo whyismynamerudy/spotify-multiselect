@@ -56,7 +56,7 @@ export default function PlaylistPage() {
         <div>
             <nav className="w-full flex m-2">
                 <Link href="https://spotify-multiselect.vercel.app/">
-                    <p className='text-slate-50 flex'><GoArrowLeft className="scale-150"/> Back</p>
+                    <p className='text-slate-50 flex ml-8 gap-2'><GoArrowLeft className="scale-150 m-1"/> Back</p>
                 </Link>
             </nav>
             <div className="w-full flex">
