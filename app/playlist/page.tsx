@@ -54,27 +54,27 @@ export default function PlaylistPage() {
 
     return (
         <div>
-            <nav className="w-full flex flex-row mr-2">
+            <nav className="w-full flex m-2">
                 <Link href="https://spotify-multiselect.vercel.app/">
-                    <p className='text-slate-50'><GoArrowLeft /> Back</p>
+                    <p className='text-slate-50 flex'><GoArrowLeft className="scale-150"/> Back</p>
                 </Link>
             </nav>
-            <div className="w-full">
+            <div className="w-full flex">
                 {/* playlist info section */}
                 <div className="w-1/2 flex">
                     {/* playlist img and name */}
-                    <img src={playlistInfo?.images[0]?.url} alt={playlistInfo?.name} className="m-2 w-52 h-52" />
+                    <img src={playlistInfo?.images[0]?.url} alt={playlistInfo?.name} className="m-10 w-52 h-52" />
                     <div>
-                        <h1 className="text-slate-50 text-2xl">{playlistInfo?.name}</h1>
+                        <h1 className="text-slate-50 text-2xl mt-10">{playlistInfo?.name}</h1>
                     </div>
                 </div>
                 <div className="w-1/2">
                     {/* button to add songs to other playlist */}
-                    <h2 className="text-slate-50 text-xl">Songs</h2>
                 </div>
             </div>
-            <div className=" text-slate-50">
+            <div className="text-slate-50 m-8">
                 {/* tracks section */}
+                <h2 className="text-slate-50 text-xl">Songs</h2>
                 {playlistData && JSON.stringify(playlistData)}
             </div>
         </div>
