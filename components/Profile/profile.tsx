@@ -47,7 +47,7 @@ export default function ProfileComp() {
 
         const response = await axios.get(`https://api.spotify.com/v1/me/playlists?limit=50&offset=0`, {
             headers: {
-                Authorization: token,
+                Authorization: `Bearer ${token}`,
             }
         })
         setPlaylistData(response.data.items);
