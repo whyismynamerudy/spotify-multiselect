@@ -1,17 +1,9 @@
 import { Playlist } from "@/utils/types";
 
-interface PlaylistCardProps extends Playlist {
-    onPlaylistClick: (id: string) => void;
-  }
-
-export default function PlaylistCard({ id, images, name, owner, onPlaylistClick }: PlaylistCardProps) {
-
-    const handlePlaylistClick = () => {
-        onPlaylistClick(id);
-    };
+export default function PlaylistCard({ id, images, name, owner }: Playlist) {
 
     return (
-        <div className="h-40 w-[24rem] bg-gray-700 flex cursor-pointer" id={id} onClick={handlePlaylistClick}>
+        <div className="h-40 w-[24rem] bg-gray-700 flex cursor-pointer" id={id}>
             <img src={images[0]?.url} alt={name} className="m-2 w-36 h-36"/>
             <div className="flex flex-col justify-center items-center w-full">
                 <h3 className=" text-slate-50 text-base">{name}</h3>

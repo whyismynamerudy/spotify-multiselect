@@ -8,10 +8,9 @@ import querystring from 'querystring'
 interface PlaylistsProps {
     token: string
     items: Playlist[];
-    onPlaylistClick: (id: string) => void;
 }
 
-export default function Playlists({ items, onPlaylistClick, token }: PlaylistsProps) {
+export default function Playlists({ items, token }: PlaylistsProps) {
 
     const getHref = (id: string) => {
       const params = querystring.stringify({
@@ -24,7 +23,7 @@ export default function Playlists({ items, onPlaylistClick, token }: PlaylistsPr
     return (
         <div className="grid grid-cols-2 gap-4 m-auto max-h-full">
           {items.map((playlist) => (
-            <Link key={playlist.id} href={getHref(playlist.id)}><PlaylistCard key={playlist.id} {...playlist} onPlaylistClick={onPlaylistClick} /></Link>
+            <Link key={playlist.id} href={getHref(playlist.id)}><PlaylistCard key={playlist.id} {...playlist} /></Link>
           ))}
         </div>
       );

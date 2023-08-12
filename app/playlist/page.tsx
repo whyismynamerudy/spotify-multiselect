@@ -36,7 +36,7 @@ export default function PlaylistPage() {
 
     return (
         <pre className="text-slate-50">
-            {playlistData && JSON.parse(playlistData)}
+            {playlistData}
         </pre>
     )
 

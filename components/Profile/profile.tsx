@@ -80,7 +80,7 @@ export default function ProfileComp() {
                 </nav>
                 <h1 className="text-slate-50 mb-2 text-4xl">Playlists</h1>
                 <div className="overflow-scroll absolute h-[85%] w-full">
-                    {playlistData && token && <Playlists token={token} items={playlistData} onPlaylistClick={handlePlaylistClick}/>}
+                    {playlistData && token && <Playlists token={token} items={playlistData}/>}
                 </div>
             </div>
         </main>
