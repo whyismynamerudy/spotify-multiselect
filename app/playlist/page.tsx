@@ -50,13 +50,13 @@ export default function PlaylistPage() {
         getPlaylistInfo()
         getPlaylistTracks();
 
-    });
+    }, []);
 
     return (
         <div>
-            <nav className="w-full flex mr-2">
+            <nav className="w-full flex flex-row mr-2">
                 <Link href="https://spotify-multiselect.vercel.app/">
-                    <p><GoArrowLeft /> Back</p>
+                    <p className='text-slate-50'><GoArrowLeft /> Back</p>
                 </Link>
             </nav>
             <div className="w-full">
