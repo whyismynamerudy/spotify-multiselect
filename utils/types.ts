@@ -59,3 +59,42 @@ export interface Playlist {
   uri: string;
   primary_color: string | null;
 }
+
+export interface Track {
+  track: {
+    album: {
+      external_urls: {
+        spotify: string;
+      };
+      images: {
+        height: number;
+        url: string;
+        width: number;
+      }[];
+    };
+    artists: {
+      name: string;
+    }[];
+    external_urls: {
+      spotify: string;
+    };
+    name: string;
+  };
+}
+
+export interface PlaylistData {
+  items: Track[];
+  next: null | string;
+}
+
+export interface PlaylistInfo {
+  external_urls: {
+    spotify: string;
+  };
+  images: {
+    height: number | null;
+    url: string;
+    width: number | null;
+  }[];
+  name: string;
+}
