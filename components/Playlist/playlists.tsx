@@ -1,5 +1,3 @@
-'use client'
-
 import PlaylistCard from './playlistCard';
 import { Playlist } from '@/utils/types';
 import Link from 'next/link'

@@ -4,13 +4,15 @@ import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react';
 import { Track, PlaylistInfo, PlaylistData } from '@/utils/types';
 import { GoArrowLeft } from "react-icons/go";
+import Tracks from '@/components/Track/tracks';
 import axios from 'axios'
 import Link from 'next/link';
 
 export default function PlaylistPage() {
 
-    const [playlistData, setPlaylistData] = useState<PlaylistData | null>(null);
+    //const [playlistData, setPlaylistData] = useState<PlaylistData | null>(null);
     const [playlistInfo, setPlaylistInfo] = useState<PlaylistInfo | null>(null);
+    const [tracks, setTracks] = useState<Track[] | null>(null);
 
     const params = useSearchParams();
     const token = params.get('token');
@@ -18,7 +20,8 @@ export default function PlaylistPage() {
 
     const getPlaylistTracks = async () => {
 
-        const fields = "next%2Citems%28track%28album%28external_urls%2Cimages%29%2Cartists%28name%29%2Cexternal_urls%2Cname%29%29"
+        //const fields = "next%2Citems%28track%28album%28external_urls%2Cimages%29%2Cartists%28name%29%2Cexternal_urls%2Cname%29%29"
+        const fields = "next%2Citems%28track%28album%28external_urls%2Cimages%29%2Cartists%28name%29%2Cexternal_urls%2Cid%2Cname%29%29"
 
         const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlist_id}/tracks?fields=${fields}`, {
             headers: {
@@ -26,7 +29,8 @@ export default function PlaylistPage() {
             }
         })
 
-        setPlaylistData(response.data)
+        console.log("next is: ", response.data.next);
+        setTracks(response.data.items)
     }
 
     const getPlaylistInfo = async () => {
@@ -75,7 +79,9 @@ export default function PlaylistPage() {
             <div className="text-slate-50 m-8">
                 {/* tracks section */}
                 <h2 className="text-slate-50 text-xl">Songs</h2>
-                {playlistData && JSON.stringify(playlistData)}
+                <div className="overflow-scroll absolute h-[85%] w-full">
+                    {tracks && <Tracks items={tracks} />}
+                </div>
             </div>
         </div>
     )
