@@ -39,7 +39,7 @@ export default function PlaylistPage() {
         setTracks(response.data.items)
 
         while (response.data.next) {
-            let response = await axios.get(`response.data.next`, {
+            response = await axios.get(response.data.next, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
