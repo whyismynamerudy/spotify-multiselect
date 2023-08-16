@@ -13,6 +13,7 @@ export default function PlaylistPage() {
     //const [playlistData, setPlaylistData] = useState<PlaylistData | null>(null);
     const [playlistInfo, setPlaylistInfo] = useState<PlaylistInfo | null>(null);
     const [tracks, setTracks] = useState<Track[] | null>(null);
+    const [display, setDisplay] = useState<boolean>(false)
 
     const params = useSearchParams();
     const token = params.get('token');
@@ -47,6 +48,8 @@ export default function PlaylistPage() {
             console.log("adding following tracks to tracks state: ", response.data.items)
             addTracks(response.data.items)
         }
+
+        setDisplay(true);
     }
 
     const getPlaylistInfo = async () => {
@@ -62,6 +65,8 @@ export default function PlaylistPage() {
     }
 
     useEffect(() => {
+
+        setDisplay(false)
 
         if (!token || !playlist_id) {
             return
@@ -96,7 +101,7 @@ export default function PlaylistPage() {
                 {/* tracks section */}
                 <h2 className="text-slate-50 text-xl">Songs</h2>
                 <div className="overflow-scroll absolute w-full mt-4">
-                    {tracks && <Tracks items={tracks} />}
+                    {display && tracks && <Tracks items={tracks} />}
                 </div>
             </div>
         </div>
