@@ -18,6 +18,12 @@ export default function PlaylistPage() {
     const token = params.get('token');
     const playlist_id = params.get('id');
 
+    const addTracks = (newTracks: Track[]) => {
+        if (tracks) {
+            setTracks([...tracks, ...newTracks])
+        }
+    }
+
     const getPlaylistTracks = async () => {
 
         //const fields = "next%2Citems%28track%28album%28external_urls%2Cimages%29%2Cartists%28name%29%2Cexternal_urls%2Cname%29%29"
@@ -58,7 +64,7 @@ export default function PlaylistPage() {
 
     return (
         <div>
-            <nav className="w-full flex m-2">
+            <nav className="w-full flex m-2 mt-4">
                 <Link href="https://spotify-multiselect.vercel.app/">
                     <p className='text-slate-50 flex ml-8 gap-2'><GoArrowLeft className="scale-150 m-1"/> Back</p>
                 </Link>
@@ -67,9 +73,9 @@ export default function PlaylistPage() {
                 {/* playlist info section */}
                 <div className="w-1/2 flex">
                     {/* playlist img and name */}
-                    <img src={playlistInfo?.images[0]?.url} alt={playlistInfo?.name} className="m-10 w-52 h-52" />
+                    <img src={playlistInfo?.images[0]?.url} alt={playlistInfo?.name} className="m-8 w-52 h-52" />
                     <div>
-                        <h1 className="text-slate-50 text-2xl mt-10">{playlistInfo?.name}</h1>
+                        <h1 className="text-slate-50 text-2xl mt-8">{playlistInfo?.name}</h1>
                     </div>
                 </div>
                 <div className="w-1/2">

@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Spotify Multi-Select Tool',
-  description: 'The one feature Spotify is still missing.',
+  description: 'The one feature Spotify is still missing.'
 }
 
 export default function RootLayout({
@@ -17,6 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <link rel="icon" href="/favicon.ico" />
       <AppContextProvider>
         <body className={inter.className}>
             {children}
