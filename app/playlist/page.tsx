@@ -29,7 +29,7 @@ export default function PlaylistPage() {
         //const fields = "next%2Citems%28track%28album%28external_urls%2Cimages%29%2Cartists%28name%29%2Cexternal_urls%2Cname%29%29"
         const fields = "next%2Citems%28track%28album%28external_urls%2Cimages%29%2Cartists%28name%29%2Cexternal_urls%2Cid%2Cname%29%29"
 
-        const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlist_id}/tracks?fields=${fields}`, {
+        let response = await axios.get(`https://api.spotify.com/v1/playlists/${playlist_id}/tracks?fields=${fields}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -37,6 +37,16 @@ export default function PlaylistPage() {
 
         console.log("next is: ", response.data.next);
         setTracks(response.data.items)
+
+        while (response.data.next) {
+            let response = await axios.get(`https://api.spotify.com/v1/playlists/${playlist_id}/tracks?fields=${fields}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            console.log("adding following tracks to tracks state: ", response.data.items)
+            addTracks(response.data.items)
+        }
     }
 
     const getPlaylistInfo = async () => {
@@ -66,7 +76,7 @@ export default function PlaylistPage() {
         <div>
             <nav className="w-full flex m-2 mt-4">
                 <Link href="https://spotify-multiselect.vercel.app/">
-                    <p className='text-slate-50 flex ml-8 gap-2'><GoArrowLeft className="scale-150 m-1"/> Back</p>
+                    <p className='text-slate-50 flex ml-6 gap-2'><GoArrowLeft className="scale-150 m-1"/> Back</p>
                 </Link>
             </nav>
             <div className="w-full flex">
@@ -82,10 +92,10 @@ export default function PlaylistPage() {
                     {/* button to add songs to other playlist */}
                 </div>
             </div>
-            <div className="text-slate-50 m-8">
+            <div className="text-slate-50 m-8 relative">
                 {/* tracks section */}
                 <h2 className="text-slate-50 text-xl">Songs</h2>
-                <div className="overflow-scroll absolute h-[85%] w-full">
+                <div className="overflow-scroll absolute w-full mt-4">
                     {tracks && <Tracks items={tracks} />}
                 </div>
             </div>
