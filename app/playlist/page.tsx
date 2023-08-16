@@ -39,7 +39,7 @@ export default function PlaylistPage() {
         setTracks(response.data.items)
 
         while (response.data.next) {
-            let response = await axios.get(`https://api.spotify.com/v1/playlists/${playlist_id}/tracks?fields=${fields}`, {
+            let response = await axios.get(`response.data.next`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
