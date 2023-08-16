@@ -20,10 +20,8 @@ export default function PlaylistPage() {
     const playlist_id = params.get('id');
 
     const addTracks = (newTracks: Track[]) => {
-        if (tracks) {
-            setTracks([...tracks, ...newTracks])
-        }
-    }
+        setTracks((prevTracks) => (prevTracks ? [...prevTracks, ...newTracks] : newTracks));
+    };
 
     const getPlaylistTracks = async () => {
 
