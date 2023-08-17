@@ -81,6 +81,7 @@ export interface Track {
     id: string;
     name: string;
   };
+  isSelected: boolean;
 }
 
 export interface PlaylistData {

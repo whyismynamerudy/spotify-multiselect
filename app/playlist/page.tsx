@@ -14,14 +14,40 @@ export default function PlaylistPage() {
     const [playlistInfo, setPlaylistInfo] = useState<PlaylistInfo | null>(null);
     const [tracks, setTracks] = useState<Track[] | null>(null);
     const [display, setDisplay] = useState<boolean>(false)
+    const [selectedCards, setSelectedCards] = useState<string[]>([]);
 
     const params = useSearchParams();
     const token = params.get('token');
     const playlist_id = params.get('id');
 
     const addTracks = (newTracks: Track[]) => {
-        setTracks((prevTracks) => (prevTracks ? [...prevTracks, ...newTracks] : newTracks));
+        const tracksWithSelection = newTracks.map((track) => ({
+            ...track,
+            isSelected: false,
+          }));
+        
+          setTracks((prevTracks) =>
+            prevTracks ? [...prevTracks, ...tracksWithSelection] : tracksWithSelection
+          );
     };
+
+    const toggleTrackSelect = (selectedTrack: Track) => {
+        setTracks((prevTracks) =>
+          prevTracks
+            ? prevTracks.map((track) =>
+                track === selectedTrack
+                  ? { ...track, isSelected: !track.isSelected }
+                  : track
+              )
+            : []
+        );
+    
+        setSelectedCards((prevSelectedCards) =>
+          selectedTrack.isSelected
+            ? prevSelectedCards.filter((id) => id !== selectedTrack.track.id)
+            : [...prevSelectedCards, selectedTrack.track.id]
+        );
+      };
 
     const getPlaylistTracks = async () => {
 
@@ -35,7 +61,7 @@ export default function PlaylistPage() {
         })
 
         console.log("next is: ", response.data.next);
-        setTracks(response.data.items)
+        addTracks(response.data.items)
 
         while (response.data.next) {
             response = await axios.get(response.data.next, {
@@ -97,11 +123,17 @@ export default function PlaylistPage() {
             </div>
             <div className="text-slate-50 m-8 relative">
                 {/* tracks section */}
-                <h2 className="text-slate-50 text-xl">Songs</h2>
-                <div className="overflow-scroll absolute w-full mt-4">
-                    {display && tracks && <Tracks items={tracks} />}
+                <h2 className="text-slate-50 text-xl mb-4">Songs</h2>
+                <div className="overflow-scroll absolute w-full">
+                    {display && tracks && <Tracks items={tracks} onToggleSelect={toggleTrackSelect} />}
                 </div>
             </div>
+            <h2 className='text-slate-50'>Selected Cards:</h2>
+            <ul className='text-slate-50'>
+                {selectedCards.map((id) => (
+                <li className='text-slate-50' key={id}>{id}</li>
+                ))}
+            </ul>
         </div>
     )
 
