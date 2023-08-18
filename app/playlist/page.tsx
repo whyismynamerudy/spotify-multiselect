@@ -48,13 +48,10 @@ export default function PlaylistPage() {
         if (!selectedPlaylistID) return;
     
         try {
-            await axios.post(`https://api.spotify.com/v1/playlists/${selectedPlaylistID}/tracks`, {
+            await axios.post(`https://api.spotify.com/v1/playlists/${selectedPlaylistID}/tracks`,{uris: selectedCards} , {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': "application/json" 
-                },
-                body: {
-                    uris: selectedCards
                 }
             })  
         } catch (error) {
