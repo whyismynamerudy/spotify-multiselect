@@ -154,47 +154,47 @@ export default function PlaylistPage() {
                     </button>
                 </div>
                 {showModal && (
-                <div className="fixed inset-0 bg-opacity-80 bg-black flex items-center justify-center">
-                <div className="bg-white p-8 rounded-lg">
-                    {/* Render the list of user playlists */}
-                    <h3 className="text-lg font-semibold mb-4">Select a Playlist:</h3>
-                    {/* Render your playlist selection options here */}
-                    {/* Example: */}
-                    <div className="mb-4">
-                    <input
-                        type="radio"
-                        name="playlist"
-                        value="playlist1"
-                        checked={selectedPlaylist === 'playlist1'}
-                        onChange={() => setSelectedPlaylist('playlist1')}
-                    />
-                    <label className="ml-2">Playlist 1</label>
+                <div className="fixed inset-0 bg-opacity-80 bg-black flex items-center justify-center z-50">
+                    <div className="bg-white p-8 rounded-lg">
+                        {/* Render the list of user playlists */}
+                        <h3 className="text-lg font-semibold mb-4">Select a Playlist:</h3>
+                        {/* Render your playlist selection options here */}
+                        {/* Example: */}
+                        <div className="mb-4">
+                        <input
+                            type="radio"
+                            name="playlist"
+                            value="playlist1"
+                            checked={selectedPlaylist === 'playlist1'}
+                            onChange={() => setSelectedPlaylist('playlist1')}
+                        />
+                        <label className="ml-2">Playlist 1</label>
+                        </div>
+                        <div className="mb-4">
+                        <input
+                            type="radio"
+                            name="playlist"
+                            value="playlist2"
+                            checked={selectedPlaylist === 'playlist2'}
+                            onChange={() => setSelectedPlaylist('playlist2')}
+                        />
+                        <label className="ml-2">Playlist 2</label>
+                        </div>
+                        {/* Add a button to confirm and add the selected songs */}
+                        <button
+                        className="bg-blue-500 text-white px-4 py-2 rounded float-right"
+                        onClick={() => {console.log('im clicked boy')}}
+                        >
+                        Add
+                        </button>
+                        {/* Close button */}
+                        <button
+                        className="bg-red-500 text-white px-4 py-2 rounded float-right mr-2"
+                        onClick={closeModal}
+                        >
+                        Cancel
+                        </button>
                     </div>
-                    <div className="mb-4">
-                    <input
-                        type="radio"
-                        name="playlist"
-                        value="playlist2"
-                        checked={selectedPlaylist === 'playlist2'}
-                        onChange={() => setSelectedPlaylist('playlist2')}
-                    />
-                    <label className="ml-2">Playlist 2</label>
-                    </div>
-                    {/* Add a button to confirm and add the selected songs */}
-                    <button
-                    className="bg-blue-500 text-white px-4 py-2 rounded float-right"
-                    onClick={() => {console.log('im clicked boy')}}
-                    >
-                    Add
-                    </button>
-                    {/* Close button */}
-                    <button
-                    className="bg-red-500 text-white px-4 py-2 rounded float-right mr-2"
-                    onClick={closeModal}
-                    >
-                    Cancel
-                    </button>
-                </div>
                 </div>
                 )}
             </div>
