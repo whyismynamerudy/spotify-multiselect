@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react';
-import { Track, PlaylistInfo, PlaylistData } from '@/utils/types';
+import { Track, PlaylistInfo, Playlist } from '@/utils/types';
 import { GoArrowLeft } from "react-icons/go";
 import Tracks from '@/components/Track/tracks';
 import axios from 'axios'
@@ -19,17 +19,29 @@ export default function PlaylistPage() {
     const [tracks, setTracks] = useState<Track[] | null>(null);
     const [display, setDisplay] = useState<boolean>(false)
     const [selectedCards, setSelectedCards] = useState<string[]>([]);
-
+    const [playlists, setPlaylists] = useState<Playlist[]>([])
     const [showModal, setShowModal] = useState(false);
-    const [selectedPlaylist, setSelectedPlaylist] = useState<string | null>(null);
+    const [selectedPlaylistID, setSelectedPlaylistID] = useState<string | null>(null);
+
+
+    const getPlaylists = async () => {
+        const response = await axios.get(`https://api.spotify.com/v1/me/playlists?limit=50&offset=0`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
+
+        setPlaylists(response.data.items);
+    }
 
     const openModal = () => {
+        getPlaylists();
         setShowModal(true);
     };
 
     const closeModal = () => {
         setShowModal(false);
-        setSelectedPlaylist(null);
+        setSelectedPlaylistID(null);
     };
 
     // const handleAddToPlaylist = async () => {
@@ -68,7 +80,7 @@ export default function PlaylistPage() {
             ? prevSelectedCards.filter((id) => id !== selectedTrack.track.uri)
             : [...prevSelectedCards, selectedTrack.track.uri]
         );
-      };
+    };
 
     const getPlaylistTracks = async () => {
 
@@ -140,12 +152,12 @@ export default function PlaylistPage() {
                 </div>
                 <div className="w-1/2">
                     {/* button to add songs to other playlist */}
-                    <h2 className='text-slate-50'>Selected Cards:</h2>
+                    {/* <h2 className='text-slate-50'>Selected Cards:</h2>
                     <ul className='text-slate-50'>
                         {selectedCards.map((id) => (
                         <li className='text-slate-50' key={id}>{id}</li>
                         ))}
-                    </ul>
+                    </ul> */}
                     <button
                     className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
                     onClick={openModal}
@@ -156,41 +168,31 @@ export default function PlaylistPage() {
                 {showModal && (
                 <div className="fixed inset-0 bg-opacity-80 bg-black flex items-center justify-center z-50">
                     <div className="bg-white p-8 rounded-lg">
-                        {/* Render the list of user playlists */}
                         <h3 className="text-lg font-semibold mb-4">Select a Playlist:</h3>
                         {/* Render your playlist selection options here */}
                         {/* Example: */}
-                        <div className="mb-4">
-                        <input
-                            type="radio"
-                            name="playlist"
-                            value="playlist1"
-                            checked={selectedPlaylist === 'playlist1'}
-                            onChange={() => setSelectedPlaylist('playlist1')}
-                        />
-                        <label className="ml-2">Playlist 1</label>
-                        </div>
-                        <div className="mb-4">
-                        <input
-                            type="radio"
-                            name="playlist"
-                            value="playlist2"
-                            checked={selectedPlaylist === 'playlist2'}
-                            onChange={() => setSelectedPlaylist('playlist2')}
-                        />
-                        <label className="ml-2">Playlist 2</label>
-                        </div>
-                        {/* Add a button to confirm and add the selected songs */}
+                        {playlists.map((playlist) => {
+                            return (<div className='mb-4'>
+                                <input 
+                                    type="radio"
+                                    name="playlist"
+                                    value={playlist.id}
+                                    checked={selectedPlaylistID === playlist.id}
+                                    onChange={() => setSelectedPlaylistID(playlist.id)}
+                                />
+                                <label className="ml-2">{playlist.name}</label>
+                            </div>)
+                        })}
                         <button
-                        className="bg-blue-500 text-white px-4 py-2 rounded float-right"
-                        onClick={() => {console.log('im clicked boy')}}
+                            className="bg-blue-500 text-white px-4 py-2 rounded float-right"
+                            onClick={() => {console.log('im clicked boy')}}
                         >
                         Add
                         </button>
                         {/* Close button */}
                         <button
-                        className="bg-red-500 text-white px-4 py-2 rounded float-right mr-2"
-                        onClick={closeModal}
+                            className="bg-red-500 text-white px-4 py-2 rounded float-right mr-2"
+                            onClick={closeModal}
                         >
                         Cancel
                         </button>

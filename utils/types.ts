@@ -84,11 +84,6 @@ export interface Track {
   isSelected: boolean;
 }
 
-export interface PlaylistData {
-  items: Track[];
-  next: null | string;
-}
-
 export interface PlaylistInfo {
   external_urls: {
     spotify: string;
