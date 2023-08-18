@@ -44,15 +44,15 @@ export default function PlaylistPage() {
     
         setSelectedCards((prevSelectedCards) =>
           selectedTrack.isSelected
-            ? prevSelectedCards.filter((id) => id !== selectedTrack.track.id)
-            : [...prevSelectedCards, selectedTrack.track.id]
+            ? prevSelectedCards.filter((id) => id !== selectedTrack.track.uri)
+            : [...prevSelectedCards, selectedTrack.track.uri]
         );
       };
 
     const getPlaylistTracks = async () => {
 
         //const fields = "next%2Citems%28track%28album%28external_urls%2Cimages%29%2Cartists%28name%29%2Cexternal_urls%2Cname%29%29"
-        const fields = "next%2Citems%28track%28album%28external_urls%2Cimages%29%2Cartists%28name%29%2Cexternal_urls%2Cid%2Cname%29%29"
+        const fields = "next%2Citems%28track%28album%28external_urls%2Cimages%29%2Cartists%28name%29%2Cexternal_urls%2Curi%2Cname%29%29"
 
         let response = await axios.get(`https://api.spotify.com/v1/playlists/${playlist_id}/tracks?fields=${fields}`, {
             headers: {
@@ -127,13 +127,13 @@ export default function PlaylistPage() {
                 <div className="overflow-scroll absolute w-full">
                     {display && tracks && <Tracks items={tracks} onToggleSelect={toggleTrackSelect} />}
                 </div>
+                <h2 className='text-slate-50'>Selected Cards:</h2>
+                <ul className='text-slate-50'>
+                    {selectedCards.map((id) => (
+                    <li className='text-slate-50' key={id}>{id}</li>
+                    ))}
+                </ul>
             </div>
-            <h2 className='text-slate-50'>Selected Cards:</h2>
-            <ul className='text-slate-50'>
-                {selectedCards.map((id) => (
-                <li className='text-slate-50' key={id}>{id}</li>
-                ))}
-            </ul>
         </div>
     )
 

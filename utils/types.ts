@@ -78,7 +78,7 @@ export interface Track {
     external_urls: {
       spotify: string;
     };
-    id: string;
+    uri: string;
     name: string;
   };
   isSelected: boolean;
