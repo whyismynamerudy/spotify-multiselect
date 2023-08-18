@@ -15,7 +15,7 @@ export default function TrackCard({ track, onToggleSelect }: TrackCardProps) {
 
     return (
         <div className={`w-72 bg-gray-700 flex cursor-pointer ${
-            track.isSelected ? 'border-2 border-blue-500' : ''
+            track.isSelected ? 'shadow-inner' : ''
         }`} id={id} onClick={handleCardClick} >
             <img src={album.images[0].url} className="m-2 w-24 h-24"/>
             <div className="flex flex-col justify-center items-center w-full">
