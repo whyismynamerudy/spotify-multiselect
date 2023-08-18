@@ -150,7 +150,7 @@ export default function PlaylistPage() {
                         <h1 className="text-slate-50 text-2xl mt-8">{playlistInfo?.name}</h1>
                     </div>
                 </div>
-                <div className="w-1/2">
+                <div className="w-1/2 flex flex-row-reverse m-8">
                     {/* button to add songs to other playlist */}
                     {/* <h2 className='text-slate-50'>Selected Cards:</h2>
                     <ul className='text-slate-50'>
@@ -159,17 +159,17 @@ export default function PlaylistPage() {
                         ))}
                     </ul> */}
                     <button
-                    className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
-                    onClick={openModal}
+                        className="bg-[#1db954] text-slate-50 px-4 py-2 rounded mt-4"
+                        onClick={openModal}
                     >
                         Add to Playlist
                     </button>
                 </div>
                 {showModal && (
                 <div className="fixed inset-0 bg-opacity-80 bg-black flex items-center justify-center z-50">
-                    <div className="bg-white p-8 rounded-lg">
+                    <div className="bg-stone-800 p-8 rounded-lg">
                         <h3 className="text-lg font-semibold mb-4">Select a Playlist:</h3>
-                        <div className="max-h-96 overflow-y-scroll overflow-x-auto">
+                        <div className="max-h-96 overflow-y-scroll max-w-sm overflow-x-auto mb-4">
                             {playlists.map((playlist) => (
                                 <div className='mb-4' key={playlist.id}>
                                     <input 
@@ -179,19 +179,19 @@ export default function PlaylistPage() {
                                         checked={selectedPlaylistID === playlist.id}
                                         onChange={() => setSelectedPlaylistID(playlist.id)}
                                     />
-                                    <label className="ml-2">{playlist.name}</label>
+                                    <label className="ml-2 text-slate-50">{playlist.name}</label>
                                 </div>
                             ))}
                         </div>
                         <button
-                            className="bg-blue-500 text-white px-4 py-2 rounded float-right"
+                            className="bg-[#1db954] text-white px-4 py-2 rounded float-right"
                             onClick={() => {console.log('im clicked boy')}}
                         >
                         Add
                         </button>
                         {/* Close button */}
                         <button
-                            className="bg-red-500 text-white px-4 py-2 rounded float-right mr-2"
+                            className="bg-[#1db954] text-white px-4 py-2 rounded float-right mr-2"
                             onClick={closeModal}
                         >
                         Cancel
