@@ -159,7 +159,7 @@ export default function PlaylistPage() {
                         ))}
                     </ul> */}
                     <button
-                        className="bg-[#1db954] text-slate-50 px-4 py-2 rounded mt-4"
+                        className="bg-[#1db954] text-slate-50 px-4 py-2 rounded mt-4 h-fit"
                         onClick={openModal}
                     >
                         Add to Playlist
@@ -168,18 +168,21 @@ export default function PlaylistPage() {
                 {showModal && (
                 <div className="fixed inset-0 bg-opacity-80 bg-black flex items-center justify-center z-50">
                     <div className="bg-stone-800 p-8 rounded-lg">
-                        <h3 className="text-lg font-semibold mb-4">Select a Playlist:</h3>
+                        <h3 className="text-xl font-semibold mb-4 text-slate-50">Select a Playlist:</h3>
                         <div className="max-h-96 overflow-y-scroll max-w-sm overflow-x-auto mb-4">
                             {playlists.map((playlist) => (
                                 <div className='mb-4' key={playlist.id}>
-                                    <input 
-                                        type="radio"
-                                        name="playlist"
-                                        value={playlist.id}
-                                        checked={selectedPlaylistID === playlist.id}
-                                        onChange={() => setSelectedPlaylistID(playlist.id)}
-                                    />
-                                    <label className="ml-2 text-slate-50">{playlist.name}</label>
+                                    <label className="flex items-center space-x-2">
+                                        <input 
+                                            type="radio"
+                                            name="playlist"
+                                            value={playlist.id}
+                                            checked={selectedPlaylistID === playlist.id}
+                                            onChange={() => setSelectedPlaylistID(playlist.id)}
+                                            className="form-radio text-[#1db954] h-4 w-4"
+                                        />
+                                        <span className="text-slate-50">{playlist.name}</span>
+                                    </label>
                                 </div>
                             ))}
                         </div>
