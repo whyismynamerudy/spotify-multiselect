@@ -10,15 +10,36 @@ import Link from 'next/link';
 
 export default function PlaylistPage() {
 
+    const params = useSearchParams();
+    const token = params.get('token');
+    const playlist_id = params.get('id');
+
     //const [playlistData, setPlaylistData] = useState<PlaylistData | null>(null);
     const [playlistInfo, setPlaylistInfo] = useState<PlaylistInfo | null>(null);
     const [tracks, setTracks] = useState<Track[] | null>(null);
     const [display, setDisplay] = useState<boolean>(false)
     const [selectedCards, setSelectedCards] = useState<string[]>([]);
 
-    const params = useSearchParams();
-    const token = params.get('token');
-    const playlist_id = params.get('id');
+    const [showModal, setShowModal] = useState(false);
+    const [selectedPlaylist, setSelectedPlaylist] = useState<string | null>(null);
+
+    const openModal = () => {
+        setShowModal(true);
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+        setSelectedPlaylist(null);
+    };
+
+    // const handleAddToPlaylist = async () => {
+    //     if (!selectedPlaylist) return;
+    
+    //     // TODO: Add logic to add selected songs to the chosen playlist
+    //     // Example: Use the Spotify Web API to add tracks to a playlist
+    
+    //     closeModal();
+    // };
 
     const addTracks = (newTracks: Track[]) => {
         const tracksWithSelection = newTracks.map((track) => ({
@@ -119,7 +140,63 @@ export default function PlaylistPage() {
                 </div>
                 <div className="w-1/2">
                     {/* button to add songs to other playlist */}
+                    <h2 className='text-slate-50'>Selected Cards:</h2>
+                    <ul className='text-slate-50'>
+                        {selectedCards.map((id) => (
+                        <li className='text-slate-50' key={id}>{id}</li>
+                        ))}
+                    </ul>
+                    <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
+                    onClick={openModal}
+                    >
+                        Add to Playlist
+                    </button>
                 </div>
+                {showModal && (
+                <div className="fixed inset-0 bg-opacity-80 bg-black flex items-center justify-center">
+                <div className="bg-white p-8 rounded-lg">
+                    {/* Render the list of user playlists */}
+                    <h3 className="text-lg font-semibold mb-4">Select a Playlist:</h3>
+                    {/* Render your playlist selection options here */}
+                    {/* Example: */}
+                    <div className="mb-4">
+                    <input
+                        type="radio"
+                        name="playlist"
+                        value="playlist1"
+                        checked={selectedPlaylist === 'playlist1'}
+                        onChange={() => setSelectedPlaylist('playlist1')}
+                    />
+                    <label className="ml-2">Playlist 1</label>
+                    </div>
+                    <div className="mb-4">
+                    <input
+                        type="radio"
+                        name="playlist"
+                        value="playlist2"
+                        checked={selectedPlaylist === 'playlist2'}
+                        onChange={() => setSelectedPlaylist('playlist2')}
+                    />
+                    <label className="ml-2">Playlist 2</label>
+                    </div>
+                    {/* Add a button to confirm and add the selected songs */}
+                    <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded float-right"
+                    onClick={() => {console.log('im clicked boy')}}
+                    >
+                    Add
+                    </button>
+                    {/* Close button */}
+                    <button
+                    className="bg-red-500 text-white px-4 py-2 rounded float-right mr-2"
+                    onClick={closeModal}
+                    >
+                    Cancel
+                    </button>
+                </div>
+                </div>
+                )}
             </div>
             <div className="text-slate-50 m-8 relative">
                 {/* tracks section */}
@@ -127,12 +204,6 @@ export default function PlaylistPage() {
                 <div className="overflow-scroll absolute w-full">
                     {display && tracks && <Tracks items={tracks} onToggleSelect={toggleTrackSelect} />}
                 </div>
-                <h2 className='text-slate-50'>Selected Cards:</h2>
-                <ul className='text-slate-50'>
-                    {selectedCards.map((id) => (
-                    <li className='text-slate-50' key={id}>{id}</li>
-                    ))}
-                </ul>
             </div>
         </div>
     )
