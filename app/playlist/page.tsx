@@ -169,10 +169,8 @@ export default function PlaylistPage() {
                 <div className="fixed inset-0 bg-opacity-80 bg-black flex items-center justify-center z-50">
                     <div className="bg-white p-8 rounded-lg">
                         <h3 className="text-lg font-semibold mb-4">Select a Playlist:</h3>
-                        {/* Render your playlist selection options here */}
-                        {/* Example: */}
-                        {playlists.map((playlist) => {
-                            return (<div className='mb-4'>
+                        {playlists.map((playlist) => (
+                            <div className='mb-4' key={playlist.id}>
                                 <input 
                                     type="radio"
                                     name="playlist"
@@ -181,8 +179,8 @@ export default function PlaylistPage() {
                                     onChange={() => setSelectedPlaylistID(playlist.id)}
                                 />
                                 <label className="ml-2">{playlist.name}</label>
-                            </div>)
-                        })}
+                            </div>
+                        ))}
                         <button
                             className="bg-blue-500 text-white px-4 py-2 rounded float-right"
                             onClick={() => {console.log('im clicked boy')}}
