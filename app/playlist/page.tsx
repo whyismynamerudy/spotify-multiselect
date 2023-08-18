@@ -54,6 +54,8 @@ export default function PlaylistPage() {
                     'Content-Type': "application/json" 
                 }
             })  
+
+            setSelectedCards([]);
         } catch (error) {
             console.log(JSON.stringify(error))
         }
