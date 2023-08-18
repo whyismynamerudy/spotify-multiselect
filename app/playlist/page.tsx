@@ -44,14 +44,26 @@ export default function PlaylistPage() {
         setSelectedPlaylistID(null);
     };
 
-    // const handleAddToPlaylist = async () => {
-    //     if (!selectedPlaylist) return;
+    const handleAddToPlaylist = async () => {
+        if (!selectedPlaylistID) return;
     
-    //     // TODO: Add logic to add selected songs to the chosen playlist
-    //     // Example: Use the Spotify Web API to add tracks to a playlist
+        try {
+            await axios.post(`https://api.spotify.com/v1/playlists/${selectedPlaylistID}/tracks`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': "application/json" 
+                },
+                body: {
+                    uris: selectedCards
+                }
+            })  
+        } catch (error) {
+            console.log(JSON.stringify(error))
+        }
+        
     
-    //     closeModal();
-    // };
+        closeModal();
+    };
 
     const addTracks = (newTracks: Track[]) => {
         const tracksWithSelection = newTracks.map((track) => ({
@@ -65,21 +77,24 @@ export default function PlaylistPage() {
     };
 
     const toggleTrackSelect = (selectedTrack: Track) => {
-        setTracks((prevTracks) =>
-          prevTracks
-            ? prevTracks.map((track) =>
-                track === selectedTrack
-                  ? { ...track, isSelected: !track.isSelected }
-                  : track
-              )
-            : []
-        );
+        // Check if the number of selected tracks is less than 50
+        if (selectedCards.length < 50) {
+            setTracks((prevTracks) =>
+                prevTracks
+                ? prevTracks.map((track) =>
+                    track === selectedTrack
+                    ? { ...track, isSelected: !track.isSelected }
+                    : track
+                )
+                : []
+            );
     
-        setSelectedCards((prevSelectedCards) =>
-          selectedTrack.isSelected
-            ? prevSelectedCards.filter((id) => id !== selectedTrack.track.uri)
-            : [...prevSelectedCards, selectedTrack.track.uri]
-        );
+            setSelectedCards((prevSelectedCards) =>
+                selectedTrack.isSelected
+                ? prevSelectedCards.filter((id) => id !== selectedTrack.track.uri)
+                : [...prevSelectedCards, selectedTrack.track.uri]
+            );
+        }
     };
 
     const getPlaylistTracks = async () => {
@@ -159,8 +174,9 @@ export default function PlaylistPage() {
                         ))}
                     </ul> */}
                     <button
-                        className="bg-[#1db954] text-slate-50 px-4 py-2 rounded mt-4 h-fit"
+                        className="bg-[#1db954] text-slate-50 px-4 py-2 rounded mt-4 mr-16 h-fit"
                         onClick={openModal}
+                        disabled={selectedCards.length === 0}
                     >
                         Add to Playlist
                     </button>
@@ -188,7 +204,7 @@ export default function PlaylistPage() {
                         </div>
                         <button
                             className="bg-[#1db954] text-white px-4 py-2 rounded float-right"
-                            onClick={() => {console.log('im clicked boy')}}
+                            onClick={handleAddToPlaylist}
                         >
                         Add
                         </button>
