@@ -169,7 +169,7 @@ export default function PlaylistPage() {
                 <div className="fixed inset-0 bg-opacity-80 bg-black flex items-center justify-center z-50">
                     <div className="bg-white p-8 rounded-lg">
                         <h3 className="text-lg font-semibold mb-4">Select a Playlist:</h3>
-                        <div className="max-h-96 overflow-scroll">
+                        <div className="max-h-96 overflow-y-scroll overflow-x-auto">
                             {playlists.map((playlist) => (
                                 <div className='mb-4' key={playlist.id}>
                                     <input 
