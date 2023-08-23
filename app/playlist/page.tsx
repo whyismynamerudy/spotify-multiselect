@@ -162,16 +162,10 @@ export default function PlaylistPage() {
                     <img src={playlistInfo?.images[0]?.url} alt={playlistInfo?.name} className="m-8 w-52 h-52" />
                     <div>
                         <h1 className="text-slate-50 text-2xl mt-8">{playlistInfo?.name}</h1>
+                        <a className='text-slate-50 text-sm mt-8' href={playlistInfo?.external_urls.spotify}>Open in Spotify</a>
                     </div>
                 </div>
                 <div className="w-1/2 flex flex-row-reverse m-8">
-                    {/* button to add songs to other playlist */}
-                    {/* <h2 className='text-slate-50'>Selected Cards:</h2>
-                    <ul className='text-slate-50'>
-                        {selectedCards.map((id) => (
-                        <li className='text-slate-50' key={id}>{id}</li>
-                        ))}
-                    </ul> */}
                     <button
                         className="bg-[#1db954] text-slate-50 px-4 py-2 rounded mt-4 mr-16 h-fit"
                         onClick={openModal}

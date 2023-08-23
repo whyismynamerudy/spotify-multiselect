@@ -22,6 +22,7 @@ export default function Login({ url }: LoginProps) {
         <main className="flex min-h-screen flex-col items-center justify-center p-24">
             <div className="h-1/3 mb-4 flex flex-col items-center justify-center">
                 <p className="text-white">Welcome to <span className='text-xl mr-1'>MultiSelect</span>: a feature that <span className="text-green-500"> Spotify</span> should have implemented already.</p>
+                <p className='text-white m-1'>All content in this application has been supplied and made available by Spotify</p>
                 <a href='\api\login' className='block mt-4'>
                     <p className="text-white bg-slate-800 py-2 px-4 rounded-lg font-semibold hover:bg-green-500 transition duration-500">
                         Log in to Spotify
