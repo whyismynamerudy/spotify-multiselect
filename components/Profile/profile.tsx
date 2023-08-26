@@ -41,7 +41,7 @@ export default function ProfileComp() {
             return
         }
 
-        const response = await axios.get(`https://api.spotify.com/v1/me/playlists?limit=50&offset=0`, {
+        const response = await axios.get(`https://api.spotify.com/v1/users/${user.id}/playlists?limit=50&offset=0`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
@@ -80,7 +80,7 @@ export default function ProfileComp() {
                 </nav>
                 <h1 className="text-slate-50 mb-2 text-4xl">Playlists</h1>
                 <div className="overflow-scroll absolute h-[85%] w-full">
-                    {playlistData && token && <Playlists token={token} items={playlistData}/>}
+                    {playlistData && token && user && <Playlists token={token} items={playlistData} user_id={user.id}/>}
                 </div>
             </div>
         </main>

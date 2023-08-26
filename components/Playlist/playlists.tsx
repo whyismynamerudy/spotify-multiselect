@@ -6,14 +6,16 @@ import querystring from 'querystring'
 interface PlaylistsProps {
     token: string
     items: Playlist[];
+    user_id: string
 }
 
-export default function Playlists({ items, token }: PlaylistsProps) {
+export default function Playlists({ items, token, user_id }: PlaylistsProps) {
 
     const getHref = (id: string) => {
       const params = querystring.stringify({
         id: id,
-        token: token
+        token: token,
+        user_id: user_id
       })
       return (`https://spotify-multiselect.vercel.app/playlist?${params}`);
     }

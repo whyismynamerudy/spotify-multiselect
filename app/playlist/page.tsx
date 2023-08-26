@@ -13,6 +13,7 @@ export default function PlaylistPage() {
     const params = useSearchParams();
     const token = params.get('token');
     const playlist_id = params.get('id');
+    const user_id = params.get('user_id')
 
     //const [playlistData, setPlaylistData] = useState<PlaylistData | null>(null);
     const [playlistInfo, setPlaylistInfo] = useState<PlaylistInfo | null>(null);
@@ -25,7 +26,7 @@ export default function PlaylistPage() {
 
 
     const getPlaylists = async () => {
-        const response = await axios.get(`https://api.spotify.com/v1/me/playlists?limit=50&offset=0`, {
+        const response = await axios.get(`https://api.spotify.com/v1/users/${user_id}/playlists?limit=50&offset=0`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
