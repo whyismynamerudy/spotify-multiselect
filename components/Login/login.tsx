@@ -14,7 +14,7 @@ export default function Login({ url }: LoginProps) {
         const access_token = query.searchParams.get('access_token') || null;
 
         if (access_token) {
-            redirect('https://spotify-multiselect.vercel.app/') // makes sure theres no url params
+            redirect('https://multiselect-tool.vercel.app/') // makes sure theres no url params
         }
     }, []);
 
