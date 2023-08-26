@@ -6,7 +6,7 @@ import AppContextProvider from '@/components/ContextAPI/provider'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Spotify Multi-Select Tool',
+  title: 'Multi-Select Tool for Spotify',
   description: 'The one feature Spotify is still missing.',
 }
 

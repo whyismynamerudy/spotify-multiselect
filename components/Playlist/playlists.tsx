@@ -17,7 +17,7 @@ export default function Playlists({ items, token, user_id }: PlaylistsProps) {
         token: token,
         user_id: user_id
       })
-      return (`https://spotify-multiselect.vercel.app/playlist?${params}`);
+      return (`https://multiselect-tool.vercel.app/playlist?${params}`);
     }
 
     return (
