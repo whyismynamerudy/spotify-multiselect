@@ -23,6 +23,8 @@ export default function Landing({ url }: LandingProps) {
         setStoredAt(new Date().getTime())
     }
 
+
+    // missing case where its not in params (else branch) but also not in storage?
     useEffect(() => {
         const query = new URL(url);
         const access_token = query.searchParams.get('access_token') || null;
@@ -50,7 +52,7 @@ export default function Landing({ url }: LandingProps) {
             console.log("retriving from storage: freresh token ", storedRefresh)
 
             const currTime = new Date().getTime()
-            if (currTime > (storedStoredAt + (storedExpiry*1000))) {
+            if (currTime > (storedStoredAt + (storedExpiry*1000)) || storedRefresh == null) {
                 // refresh token
                 if (storedRefresh) {
                     refresh_req(storedRefresh)
