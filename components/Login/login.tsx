@@ -33,8 +33,9 @@ export default function Login({ url }: LoginProps) {
                 <iframe 
                     width="853" 
                     height="480" 
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1" 
-                    title="YouTube video player" 
+                    //src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1" 
+                    src="https://www.loom.com/embed/abd0b069254f487fbca587d4b69191e1?sid=3176d4de-5fb3-4635-a3e0-3948d66c9539"
+                    title="Loom Video Player" 
                     frameBorder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     allowFullScreen 
