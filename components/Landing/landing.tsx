@@ -15,7 +15,7 @@ export default function Landing({ url }: LandingProps) {
     const { token, setToken, expire, setExpire, storedAt, setStoredAt, refresh, setRefresh } = useAppContext();
 
     const refresh_req = async (refresh_token: string) => {
-        console.log("this bitch called")
+        console.log("async refresh req called")
         const newres = await axios.get(`https://multiselect-tool.vercel.app/api/refresh_token?refresh_token=${refresh_token}`)
         
         setToken(newres.data.access_token)
@@ -34,6 +34,9 @@ export default function Landing({ url }: LandingProps) {
         const refresh_token = query.searchParams.get('refresh_token') || null;
 
         if (access_token && refresh_token && expires_in && stored_at) {
+
+            console.log("in first branch, have access and refresh and express and stored");
+
             const auth = access_token;
             localStorage.setItem('auth_token', auth);
             localStorage.setItem('refresh_token', refresh_token);
@@ -44,6 +47,9 @@ export default function Landing({ url }: LandingProps) {
             setStoredAt(Number(stored_at))
             setRefresh(refresh_token)
         } else {
+
+            console.log("in second branch, dont have access and refresh and express and stored");
+
             let storedToken = localStorage.getItem('auth_token');
             let storedRefresh = localStorage.getItem('refresh_token');
             let storedExpiry = Number(localStorage.getItem('expires_in'));

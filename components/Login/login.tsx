@@ -15,6 +15,8 @@ export default function Login({ url }: LoginProps) {
 
         if (access_token) {
             redirect('https://multiselect-tool.vercel.app/') // makes sure theres no url params
+        } else {
+            console.log("came here but nothing in url so no redirect happened");
         }
     }, []);
 

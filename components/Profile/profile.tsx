@@ -7,23 +7,17 @@ import UserDetails from './UserDetails/userdetails';
 import Playlists from '../Playlist/playlists';
 import { Playlist } from '@/utils/types';
 import axios from 'axios';
-import querystring from 'querystring';
 
 export default function ProfileComp() {
-    ////////////////////////  STATES ////////////////////////
-    const { user, setUser, token, setToken, test } = useAppContext();
-    const [ playlistData, setPlaylistData ] = useState<Playlist[] | null>(null)
-    ////////////////////////////////////////////////////////
 
-    ////////////////////////  FUNCTIONS  ////////////////////////
-    const handlePlaylistClick = (id: string) => {
-        console.log(`Clicked playlist with ID: ${id}`);
-    };
+    const { user, setUser, token, setToken, expire, setExpire, storedAt, setStoredAt, refresh, setRefresh } = useAppContext();
+    const [ playlistData, setPlaylistData ] = useState<Playlist[] | null>(null)
 
     const handleLogOut = () => {
         localStorage.clear()
         console.log("cleared local storage");
         setToken(null);
+        setUser(null);
         redirect('/')
     }
 
@@ -48,9 +42,7 @@ export default function ProfileComp() {
         })
         setPlaylistData(response.data.items);
     }
-    ////////////////////////////////////////////////////////////
 
-    ////////////////////////  HOOKS  ////////////////////////
     useEffect(()=>{
         if (!token) {
             console.log('token not detected')
@@ -63,7 +55,6 @@ export default function ProfileComp() {
     useEffect(() => {
         getPlaylistData();
     }, [user])
-    ////////////////////////////////////////////////////////
 
     return (
         <div className="h-screen min-h-screen">
