@@ -13,7 +13,6 @@ interface LandingProps {
 export default function Landing({ url }: LandingProps) {
 
     const { token, setToken, expire, setExpire, storedAt, setStoredAt, refresh, setRefresh } = useAppContext();
-    const [init_token, set_init_token] = useState(false);
 
     const refresh_req = async (refresh_token: string) => {
         console.log("async refresh req called")
@@ -37,7 +36,6 @@ export default function Landing({ url }: LandingProps) {
         if (access_token && refresh_token && expires_in && stored_at) {
 
             console.log("in first branch, have access and refresh and express and stored");
-            set_init_token(true);
 
             const auth = access_token;
             localStorage.setItem('auth_token', auth);
@@ -76,7 +74,7 @@ export default function Landing({ url }: LandingProps) {
 
     return (
         <>
-            { init_token ? <ProfileComp /> : <Login url={url}/> }
+            { token ? <ProfileComp /> : <Login url={url}/> }
         </>
     )
 }
