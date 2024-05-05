@@ -10,7 +10,7 @@ export default function PlaylistCard({ id, images, name, owner, external_urls }:
                 <h3 className=" text-slate-50 text-base">{name}</h3>
                 <h5 className=" text-gray-400 text-sm">The Genius of : {owner.display_name}</h5>
                 <div className="bottom-0 flex items-center justify-center">
-                    <a href={external_urls.spotify} target="_blank">
+                    <a href={external_urls.spotify} target="_blank" className="flex items-center justify-center">
                      Open in <img className="w-1/2" src="/SpotifyLogo.png"/>
                     </a>
                 </div>
