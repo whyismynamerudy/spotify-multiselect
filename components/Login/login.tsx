@@ -19,54 +19,79 @@ const generateRandomString = (length: number) => {
 
 export default function Login({ url }: LoginProps) {
 
+    const handleLogin = () => {
+        console.log("Re-routing to Spotify for Authorization");
 
-    useEffect(() => {
-        const query = new URL(url);
-        const access_token = query.searchParams.get('access_token') || null;
+        const state = generateRandomString(16);
+        const scope = `
+        user-read-private 
+        user-read-email
+        user-library-read 
+        playlist-read-private 
+        playlist-read-collaborative 
+        playlist-modify-private 
+        playlist-modify-public
+        `;
 
-        if (access_token) {
-            const state = generateRandomString(16);
-            const scope = `
-                user-read-private 
-                user-read-email
-                user-library-read 
-                playlist-read-private 
-                playlist-read-collaborative 
-                playlist-modify-private 
-                playlist-modify-public
-            `;
+        const queryParams = querystring.stringify({
+            client_id: process.env.CLIENT_ID,
+            response_type: 'code',
+            redirect_uri: process.env.REDIRECT_URI,
+            state: state,
+            scope: scope,
+        });
 
-            const queryParams = querystring.stringify({
-                client_id: process.env.NEXT_PUBLIC_CLIENT_ID!,
-                response_type: 'code',
-                redirect_uri: process.env.NEXT_PUBLIC_REDIRECT_URI!,
-                state: state,
-                scope: scope,
-            });
+        redirect(`https://accounts.spotify.com/authorize?${queryParams}`);
+    };
 
-            redirect(`https://accounts.spotify.com/authorize?${queryParams}`);
-        } else {
-            console.log("Came here but nothing in url so no redirect happened");
-        }
-    }, [url]);
 
     // useEffect(() => {
     //     const query = new URL(url);
     //     const access_token = query.searchParams.get('access_token') || null;
 
     //     if (access_token) {
-    //         redirect('https://multiselect-tool.vercel.app/') // makes sure theres no url params
+    //         const state = generateRandomString(16);
+    //         const scope = `
+    //             user-read-private 
+    //             user-read-email
+    //             user-library-read 
+    //             playlist-read-private 
+    //             playlist-read-collaborative 
+    //             playlist-modify-private 
+    //             playlist-modify-public
+    //         `;
+
+    //         const queryParams = querystring.stringify({
+    //             client_id: process.env.NEXT_PUBLIC_CLIENT_ID!,
+    //             response_type: 'code',
+    //             redirect_uri: process.env.NEXT_PUBLIC_REDIRECT_URI!,
+    //             state: state,
+    //             scope: scope,
+    //         });
+
+    //         redirect(`https://accounts.spotify.com/authorize?${queryParams}`);
     //     } else {
-    //         console.log("came here but nothing in url so no redirect happened");
+    //         console.log("Came here but nothing in url so no redirect happened");
     //     }
-    // }, []);
+    // }, [url]);
+
+    useEffect(() => {
+        const query = new URL(url);
+        const access_token = query.searchParams.get('access_token') || null;
+
+        if (access_token) {
+            redirect('https://multiselect-tool.vercel.app/') // makes sure theres no url params
+        } else {
+            console.log("came here but nothing in url so no redirect happened");
+        }
+    }, []);
 
     return (
         <main className="flex min-h-screen flex-col items-center justify-center p-24">
             <div className="h-1/3 mb-4 flex flex-col items-center justify-center">
                 <p className="text-white">Welcome to <span className='text-xl mr-1'>MultiSelect</span>: a feature that <span className="text-green-500"> Spotify</span> should have implemented already.</p>
                 <p className='text-white m-1'>All content in this application has been supplied and made available by Spotify</p>
-                <a href='\api\login' className='block mt-4'>
+                <a onClick={handleLogin} className='block mt-4'>
                     <p className="text-white bg-slate-800 py-2 px-4 rounded-lg font-semibold hover:bg-green-500 transition duration-500">
                         Log in to Spotify
                     </p>
