@@ -1,7 +1,6 @@
 'use client'
 
 import { redirect } from 'next/navigation'
-import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
 interface LoginProps {
@@ -9,8 +8,6 @@ interface LoginProps {
 }
 
 export default function Login({ url }: LoginProps) {
-
-    const router = useRouter();
 
     useEffect(() => {
         const query = new URL(url);
@@ -29,7 +26,7 @@ export default function Login({ url }: LoginProps) {
                 })
                 .then(data => {
                     // Redirect to your desired URL after handling the response
-                    router.push('https://multiselect-tool.vercel.app/');
+                    redirect('https://multiselect-tool.vercel.app/');
                 })
                 .catch(error => {
                     console.error('Error fetching /api/login:', error);
@@ -37,7 +34,7 @@ export default function Login({ url }: LoginProps) {
         } else {
             console.log("Came here but nothing in url so no redirect happened");
         }
-    }, [url, router]);
+    }, [url]);
 
     // useEffect(() => {
     //     const query = new URL(url);
