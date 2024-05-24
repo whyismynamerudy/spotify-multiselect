@@ -43,6 +43,7 @@ export default function PlaylistPage() {
     const closeModal = () => {
         setShowModal(false);
         setSelectedPlaylistID(null);
+        resetTrackSelection();
     };
 
     const handleAddToPlaylist = async () => {
@@ -63,6 +64,13 @@ export default function PlaylistPage() {
         
     
         closeModal();
+    };
+
+    const resetTrackSelection = () => {
+        setTracks(prevTracks =>
+            prevTracks ? prevTracks.map(track => ({ ...track, isSelected: false })) : []
+        );
+        setSelectedCards([]);
     };
 
     const addTracks = (newTracks: Track[]) => {
