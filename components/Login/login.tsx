@@ -1,6 +1,7 @@
 'use client'
 
 import { redirect } from 'next/navigation'
+import { useRouter } from 'next/router';
 import { useEffect } from 'react'
 const querystring = require('querystring');
 
@@ -18,6 +19,8 @@ const generateRandomString = (length: number) => {
 };
 
 export default function Login({ url }: LoginProps) {
+
+    const router = useRouter();
 
     const handleLogin = () => {
         console.log("Re-routing to Spotify for Authorization");
@@ -41,7 +44,7 @@ export default function Login({ url }: LoginProps) {
             scope: scope,
         });
 
-        redirect(`https://accounts.spotify.com/authorize?${queryParams}`);
+        router.push(`https://accounts.spotify.com/authorize?${queryParams}`);
     };
 
 
@@ -80,7 +83,7 @@ export default function Login({ url }: LoginProps) {
         const access_token = query.searchParams.get('access_token') || null;
 
         if (access_token) {
-            redirect('https://multiselect-tool.vercel.app/') // makes sure theres no url params
+            router.push('https://multiselect-tool.vercel.app/') // makes sure theres no url params
         } else {
             console.log("came here but nothing in url so no redirect happened");
         }
