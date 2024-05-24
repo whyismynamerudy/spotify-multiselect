@@ -1,6 +1,7 @@
 'use client'
 
 import { redirect } from 'next/navigation'
+import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
 interface LoginProps {
@@ -9,16 +10,45 @@ interface LoginProps {
 
 export default function Login({ url }: LoginProps) {
 
+    const router = useRouter();
+
     useEffect(() => {
         const query = new URL(url);
         const access_token = query.searchParams.get('access_token') || null;
 
         if (access_token) {
-            redirect('https://multiselect-tool.vercel.app/') // makes sure theres no url params
+            fetch('/api/login')
+                .then(response => {
+                    if (response.ok) {
+                        // Assuming you might want to handle something with the response
+                        // For example, you might want to parse the response to check the state or other data
+                        return response.json();
+                    } else {
+                        throw new Error('Failed to fetch');
+                    }
+                })
+                .then(data => {
+                    // Redirect to your desired URL after handling the response
+                    router.push('https://multiselect-tool.vercel.app/');
+                })
+                .catch(error => {
+                    console.error('Error fetching /api/login:', error);
+                });
         } else {
-            console.log("came here but nothing in url so no redirect happened");
+            console.log("Came here but nothing in url so no redirect happened");
         }
-    }, []);
+    }, [url, router]);
+
+    // useEffect(() => {
+    //     const query = new URL(url);
+    //     const access_token = query.searchParams.get('access_token') || null;
+
+    //     if (access_token) {
+    //         redirect('https://multiselect-tool.vercel.app/') // makes sure theres no url params
+    //     } else {
+    //         console.log("came here but nothing in url so no redirect happened");
+    //     }
+    // }, []);
 
     return (
         <main className="flex min-h-screen flex-col items-center justify-center p-24">
