@@ -2,35 +2,49 @@
 
 import { redirect } from 'next/navigation'
 import { useEffect } from 'react'
+const querystring = require('querystring');
 
 interface LoginProps {
     url: string; // Add the url prop
 }
 
+const generateRandomString = (length: number) => {
+    let text = '';
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (let i = 0; i < length; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+};
+
 export default function Login({ url }: LoginProps) {
+
 
     useEffect(() => {
         const query = new URL(url);
         const access_token = query.searchParams.get('access_token') || null;
 
         if (access_token) {
-            fetch('/api/login')
-                .then(response => {
-                    if (response.ok) {
-                        // Assuming you might want to handle something with the response
-                        // For example, you might want to parse the response to check the state or other data
-                        return response.json();
-                    } else {
-                        throw new Error('Failed to fetch');
-                    }
-                })
-                .then(data => {
-                    // Redirect to your desired URL after handling the response
-                    redirect('https://multiselect-tool.vercel.app/');
-                })
-                .catch(error => {
-                    console.error('Error fetching /api/login:', error);
-                });
+            const state = generateRandomString(16);
+            const scope = `
+                user-read-private 
+                user-read-email
+                user-library-read 
+                playlist-read-private 
+                playlist-read-collaborative 
+                playlist-modify-private 
+                playlist-modify-public
+            `;
+
+            const queryParams = querystring.stringify({
+                client_id: process.env.NEXT_PUBLIC_CLIENT_ID!,
+                response_type: 'code',
+                redirect_uri: process.env.NEXT_PUBLIC_REDIRECT_URI!,
+                state: state,
+                scope: scope,
+            });
+
+            redirect(`https://accounts.spotify.com/authorize?${queryParams}`);
         } else {
             console.log("Came here but nothing in url so no redirect happened");
         }
