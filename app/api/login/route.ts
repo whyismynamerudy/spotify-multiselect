@@ -52,7 +52,9 @@ export async function GET(request: NextRequest) {
 
     const redirectUrl = `https://accounts.spotify.com/authorize?${queryParams}`;
 
-    // return NextResponse.json({})
+    return NextResponse.json({
+        params: redirectUrl,
+    })
 
-    return NextResponse.redirect(new URL(redirectUrl));
+    // return NextResponse.redirect(new URL(redirectUrl));
 }
