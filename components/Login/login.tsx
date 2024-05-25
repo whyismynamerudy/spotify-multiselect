@@ -28,7 +28,7 @@ export default function Login({ url }: LoginProps) {
       const response = await axios.get('/api/login');
       if (response.status === 200) {
         // The server should redirect the user to the Spotify authorization page
-        router.push(`https://accounts.spotify.com/authorize?${response.data.params}`);
+        router.push(response.data.params);
         console.log("should've been redirected already")
       } else {
         console.error("Failed to initiate Spotify authorization");
