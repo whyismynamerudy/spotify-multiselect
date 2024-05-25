@@ -4,6 +4,7 @@
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react'
 const querystring = require('querystring');
+import axios from 'axios';
 
 interface LoginProps {
     url: string; // Add the url prop
@@ -25,28 +26,30 @@ export default function Login({ url }: LoginProps) {
     const handleLogin = () => {
         console.log("Re-routing to Spotify for Authorization");
 
-        const state = generateRandomString(16);
-        const scope = `
-        user-read-private 
-        user-read-email
-        user-library-read 
-        playlist-read-private 
-        playlist-read-collaborative 
-        playlist-modify-private 
-        playlist-modify-public
-        `;
+        axios.get('/api/login');
 
-        //to do: alter /api/login to return the query params instead
+        // const state = generateRandomString(16);
+        // const scope = `
+        // user-read-private 
+        // user-read-email
+        // user-library-read 
+        // playlist-read-private 
+        // playlist-read-collaborative 
+        // playlist-modify-private 
+        // playlist-modify-public
+        // `;
 
-        const queryParams = querystring.stringify({
-            client_id: process.env.CLIENT_ID,
-            response_type: 'code',
-            redirect_uri: process.env.REDIRECT_URI,
-            state: state,
-            scope: scope,
-        });
+        // //to do: alter /api/login to return the query params instead
 
-        router.push(`https://accounts.spotify.com/authorize?${queryParams}`);
+        // const queryParams = querystring.stringify({
+        //     client_id: process.env.CLIENT_ID,
+        //     response_type: 'code',
+        //     redirect_uri: process.env.REDIRECT_URI,
+        //     state: state,
+        //     scope: scope,
+        // });
+
+        // router.push(`https://accounts.spotify.com/authorize?${queryParams}`);
     };
 
 
