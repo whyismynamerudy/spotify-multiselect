@@ -52,12 +52,12 @@ export async function GET(request: NextRequest) {
 
     const redirectUrl = `https://accounts.spotify.com/authorize?${queryParams}`;
 
-    return NextResponse.redirect(redirectUrl, {
-        status: 302, // Redirect status code
-        headers: {
-            'Access-Control-Allow-Origin': 'https://multiselect-tool.vercel.app',
-            'Access-Control-Allow-Methods': 'GET',
-            'Access-Control-Allow-Headers': 'Content-Type',
-        },
-    });
+    return NextResponse.redirect(redirectUrl
+        // status: 302, // Redirect status code
+        // headers: {
+        //     'Access-Control-Allow-Origin': 'https://multiselect-tool.vercel.app',
+        //     'Access-Control-Allow-Methods': 'GET',
+        //     'Access-Control-Allow-Headers': 'Content-Type',
+        // },
+    );
 }
