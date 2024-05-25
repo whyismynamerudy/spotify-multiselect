@@ -161,18 +161,16 @@ export default function PlaylistPage() {
         <div>
             <nav className="w-full flex m-2 mt-4">
                 <Link href="https://multiselect-tool.vercel.app/">
-                    <p className='text-slate-50 flex ml-6 gap-2'><GoArrowLeft className="scale-150 m-1"/> Back</p>
+                    <p className='text-slate-50 flex ml-6 gap-2'><GoArrowLeft className="scale-150 m-1" /> Back</p>
                 </Link>
             </nav>
             <div className="w-full flex">
-                {/* playlist info section */}
                 <div className="w-1/2 flex">
-                    {/* playlist img and name */}
                     <img src={playlistInfo?.images[0]?.url} alt={playlistInfo?.name} className="m-8 w-52 h-52" />
                     <div>
                         <h1 className="text-slate-50 text-2xl mt-8">{playlistInfo?.name}</h1>
                         <a className='text-slate-50 text-sm mt-8 underline' href={playlistInfo?.external_urls.spotify}>
-                            Open in <img className="w-1/3" src="/SpotifyLogo.png"/>
+                            Open in <img className="w-1/3" src="/SpotifyLogo.png" />
                         </a>
                     </div>
                 </div>
@@ -186,51 +184,125 @@ export default function PlaylistPage() {
                     </button>
                 </div>
                 {showModal && (
-                <div className="fixed inset-0 bg-opacity-80 bg-black flex items-center justify-center z-50">
-                    <div className="bg-stone-800 p-8 rounded-lg">
-                        <h3 className="text-xl font-semibold mb-4 text-slate-50">Select a Playlist:</h3>
-                        <div className="max-h-96 overflow-y-scroll max-w-sm overflow-x-auto mb-4">
-                            {playlists.map((playlist) => (
-                                <div className='mb-4' key={playlist.id}>
-                                    <label className="flex items-center space-x-2">
-                                        <input 
-                                            type="radio"
-                                            name="playlist"
-                                            value={playlist.id}
-                                            checked={selectedPlaylistID === playlist.id}
-                                            onChange={() => setSelectedPlaylistID(playlist.id)}
-                                            className="form-radio text-[#1db954] h-4 w-4"
-                                        />
-                                        <span className="text-slate-50">{playlist.name}</span>
-                                    </label>
-                                </div>
-                            ))}
+                    <div className="fixed inset-0 bg-opacity-80 bg-black flex items-center justify-center z-50">
+                        <div className="bg-stone-800 p-8 rounded-lg">
+                            <h3 className="text-xl font-semibold mb-4 text-slate-50">Select a Playlist:</h3>
+                            <div className="max-h-96 overflow-y-scroll max-w-sm overflow-x-auto mb-4">
+                                {playlists.map((playlist) => (
+                                    <div className='mb-4' key={playlist.id}>
+                                        <label className="flex items-center space-x-2">
+                                            <input
+                                                type="radio"
+                                                name="playlist"
+                                                value={playlist.id}
+                                                checked={selectedPlaylistID === playlist.id}
+                                                onChange={() => setSelectedPlaylistID(playlist.id)}
+                                                className="form-radio text-[#1db954] h-4 w-4"
+                                            />
+                                            <span className="text-slate-50">{playlist.name}</span>
+                                        </label>
+                                    </div>
+                                ))}
+                            </div>
+                            <button
+                                className="bg-[#1db954] text-white px-4 py-2 rounded float-right"
+                                onClick={handleAddToPlaylist}
+                            >
+                                Add
+                            </button>
+                            <button
+                                className="bg-[#1db954] text-white px-4 py-2 rounded float-right mr-2"
+                                onClick={closeModal}
+                            >
+                                Cancel
+                            </button>
                         </div>
-                        <button
-                            className="bg-[#1db954] text-white px-4 py-2 rounded float-right"
-                            onClick={handleAddToPlaylist}
-                        >
-                        Add
-                        </button>
-                        {/* Close button */}
-                        <button
-                            className="bg-[#1db954] text-white px-4 py-2 rounded float-right mr-2"
-                            onClick={closeModal}
-                        >
-                        Cancel
-                        </button>
                     </div>
-                </div>
                 )}
             </div>
             <div className="text-slate-50 m-8 relative">
-                {/* tracks section */}
                 <h2 className="text-slate-50 text-xl mb-4">Songs</h2>
                 <div className="overflow-scroll absolute w-full">
                     {display && tracks && <Tracks items={tracks} onToggleSelect={toggleTrackSelect} />}
                 </div>
             </div>
         </div>
-    )
+    );
+
+    // return (
+    //     <div>
+    //         <nav className="w-full flex m-2 mt-4">
+    //             <Link href="https://multiselect-tool.vercel.app/">
+    //                 <p className='text-slate-50 flex ml-6 gap-2'><GoArrowLeft className="scale-150 m-1"/> Back</p>
+    //             </Link>
+    //         </nav>
+    //         <div className="w-full flex">
+    //             {/* playlist info section */}
+    //             <div className="w-1/2 flex">
+    //                 {/* playlist img and name */}
+    //                 <img src={playlistInfo?.images[0]?.url} alt={playlistInfo?.name} className="m-8 w-52 h-52" />
+    //                 <div>
+    //                     <h1 className="text-slate-50 text-2xl mt-8">{playlistInfo?.name}</h1>
+    //                     <a className='text-slate-50 text-sm mt-8 underline' href={playlistInfo?.external_urls.spotify}>
+    //                         Open in <img className="w-1/3" src="/SpotifyLogo.png"/>
+    //                     </a>
+    //                 </div>
+    //             </div>
+    //             <div className="w-1/2 flex flex-row-reverse m-8">
+    //                 <button
+    //                     className="bg-[#1db954] text-slate-50 px-4 py-2 rounded mt-4 mr-16 h-fit"
+    //                     onClick={openModal}
+    //                     disabled={selectedCards.length === 0}
+    //                 >
+    //                     Add to Playlist
+    //                 </button>
+    //             </div>
+    //             {showModal && (
+    //             <div className="fixed inset-0 bg-opacity-80 bg-black flex items-center justify-center z-50">
+    //                 <div className="bg-stone-800 p-8 rounded-lg">
+    //                     <h3 className="text-xl font-semibold mb-4 text-slate-50">Select a Playlist:</h3>
+    //                     <div className="max-h-96 overflow-y-scroll max-w-sm overflow-x-auto mb-4">
+    //                         {playlists.map((playlist) => (
+    //                             <div className='mb-4' key={playlist.id}>
+    //                                 <label className="flex items-center space-x-2">
+    //                                     <input 
+    //                                         type="radio"
+    //                                         name="playlist"
+    //                                         value={playlist.id}
+    //                                         checked={selectedPlaylistID === playlist.id}
+    //                                         onChange={() => setSelectedPlaylistID(playlist.id)}
+    //                                         className="form-radio text-[#1db954] h-4 w-4"
+    //                                     />
+    //                                     <span className="text-slate-50">{playlist.name}</span>
+    //                                 </label>
+    //                             </div>
+    //                         ))}
+    //                     </div>
+    //                     <button
+    //                         className="bg-[#1db954] text-white px-4 py-2 rounded float-right"
+    //                         onClick={handleAddToPlaylist}
+    //                     >
+    //                     Add
+    //                     </button>
+    //                     {/* Close button */}
+    //                     <button
+    //                         className="bg-[#1db954] text-white px-4 py-2 rounded float-right mr-2"
+    //                         onClick={closeModal}
+    //                     >
+    //                     Cancel
+    //                     </button>
+    //                 </div>
+    //             </div>
+    //             )}
+    //         </div>
+    //         <div className="text-slate-50 m-8 relative">
+    //             {/* tracks section */}
+    //             <h2 className="text-slate-50 text-xl mb-4">Songs</h2>
+    //             <div className="overflow-scroll absolute w-full">
+    //                 {display && tracks && <Tracks items={tracks} onToggleSelect={toggleTrackSelect} />}
+    //             </div>
+    //         </div>
+    //     </div>
+    // )
 
 }

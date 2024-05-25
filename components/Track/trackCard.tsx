@@ -35,7 +35,7 @@ export default function TrackCard({ track, onToggleSelect }: TrackCardProps) {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    Open in <img className="w-5 h-5 ml-1" src="/SpotifyLogo.png" alt="Spotify logo" />
+                    Open in <img className="w-10 ml-1" src="/SpotifyLogo.png" alt="Spotify logo" />
                 </a>
             </div>
         </div>
