@@ -21,6 +21,9 @@ export default function TrackCard({ track, onToggleSelect }: TrackCardProps) {
             <div className="flex flex-col justify-center items-center w-full">
                 <h3 className=" text-slate-50 text-base">{name}</h3>
                 <h5 className=" text-gray-400 text-sm">{artists[0].name}</h5>
+                <a className='text-slate-50 text-sm mt-8' href={external_urls.spotify}>
+                            Open in <img className="w-1/4" src="/SpotifyLogo.png"/>
+                </a>
             </div>
         </div>
     )

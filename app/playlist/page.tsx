@@ -171,7 +171,9 @@ export default function PlaylistPage() {
                     <img src={playlistInfo?.images[0]?.url} alt={playlistInfo?.name} className="m-8 w-52 h-52" />
                     <div>
                         <h1 className="text-slate-50 text-2xl mt-8">{playlistInfo?.name}</h1>
-                        <a className='text-slate-50 text-sm mt-8 underline' href={playlistInfo?.external_urls.spotify}>Open in Spotify</a>
+                        <a className='text-slate-50 text-sm mt-8 underline' href={playlistInfo?.external_urls.spotify}>
+                            Open in <img className="w-1/2" src="/SpotifyLogo.png"/>
+                        </a>
                     </div>
                 </div>
                 <div className="w-1/2 flex flex-row-reverse m-8">
