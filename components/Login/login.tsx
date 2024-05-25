@@ -1,4 +1,4 @@
-'use client'
+// 'use client'
 
 // import { redirect } from 'next/navigation'
 import { useRouter } from 'next/navigation';
@@ -35,6 +35,8 @@ export default function Login({ url }: LoginProps) {
         playlist-modify-private 
         playlist-modify-public
         `;
+
+        //to do: alter /api/login to return the query params instead
 
         const queryParams = querystring.stringify({
             client_id: process.env.CLIENT_ID,
