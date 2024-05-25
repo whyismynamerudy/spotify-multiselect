@@ -1,11 +1,5 @@
 import { type NextRequest, NextResponse } from 'next/server';
 const querystring = require('querystring');
-import cors from 'cors';
-
-const corsMiddleware = cors({
-    origin: 'https://multiselect-tool.vercel.app',
-    methods: ['GET'], // Allow only GET requests for this API route
-  });
 
 /**
  * Generates a random string containing numbers and letters
