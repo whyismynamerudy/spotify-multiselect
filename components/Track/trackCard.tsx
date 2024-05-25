@@ -23,7 +23,7 @@ export default function TrackCard({ track, onToggleSelect }: TrackCardProps) {
         >
             <img
                 src={album.images[0].url}
-                className="m-2 w-full h-48 object-cover rounded-t-lg"
+                className="m-2 w-full h-48 object-contain rounded-t-lg"
                 alt={`Album art for ${name}`}
             />
             <div className="flex flex-col justify-center items-center w-full p-4">
