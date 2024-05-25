@@ -16,13 +16,16 @@ const generateRandomString = (length: number) => {
 };
 
 
-export async function GET(request: NextRequest, response: NextResponse) {
+export async function GET(request: NextRequest) {
 
     // await corsMiddleware(request, response);
 
-    response.headers.set('Access-Control-Allow-Origin', 'https://multiselect-tool.vercel.app');
-    response.headers.set('Access-Control-Allow-Methods', 'GET');
-    response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+    const responseHeaders = {
+        'Access-Control-Allow-Origin': 'https://multiselect-tool.vercel.app',
+        'Access-Control-Allow-Methods': 'GET',
+        'Access-Control-Allow-Headers': 'Content-Type',
+    };
+
 
     console.log("Re-routing to Spotify for Authorization");
 
@@ -45,5 +48,16 @@ export async function GET(request: NextRequest, response: NextResponse) {
         scope: scope,
     });
 
-    return NextResponse.redirect(`https://accounts.spotify.com/authorize?${queryParams}`);
+    // return NextResponse.redirect(`https://accounts.spotify.com/authorize?${queryParams}`);
+
+    const redirectUrl = `https://accounts.spotify.com/authorize?${queryParams}`;
+
+    return NextResponse.redirect(redirectUrl, {
+        status: 302, // Redirect status code
+        headers: {
+            'Access-Control-Allow-Origin': 'https://multiselect-tool.vercel.app',
+            'Access-Control-Allow-Methods': 'GET',
+            'Access-Control-Allow-Headers': 'Content-Type',
+        },
+    });
 }
