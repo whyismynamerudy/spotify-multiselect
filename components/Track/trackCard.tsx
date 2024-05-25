@@ -23,7 +23,7 @@ export default function TrackCard({ track, onToggleSelect }: TrackCardProps) {
         >
             <img
                 src={album.images[0].url}
-                className="m-2 w-full h-48 object-contain rounded-t-lg"
+                className="m-2 w-64 h-64 object-cover rounded-t-lg mx-auto"
                 alt={`Album art for ${name}`}
             />
             <div className="flex flex-col justify-center items-center w-full p-4">
@@ -35,7 +35,7 @@ export default function TrackCard({ track, onToggleSelect }: TrackCardProps) {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    Open in <img className="w-10 ml-1" src="/SpotifyLogo.png" alt="Spotify logo" />
+                    Open in <img className="w-16 ml-1" src="/SpotifyLogo.png" alt="Spotify logo" />
                 </a>
             </div>
         </div>
