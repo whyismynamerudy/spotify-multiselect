@@ -16,7 +16,7 @@ export default function PlaylistCard({ id, images, name, owner, external_urls }:
                 <div className="flex items-center justify-center mt-4">
                     <a href={external_urls.spotify} 
                        target="_blank" 
-                       className="flex items-center justify-center" 
+                       className="flex items-center justify-center text-slate-50" 
                        onClick={handleSpotifyLogoClick}
                     >
                      Open in <img className="w-1/2" src="/SpotifyLogo.png"/>
