@@ -21,12 +21,39 @@ const generateRandomString = (length: number) => {
 
 export default function Login({ url }: LoginProps) {
 
-    const router = useRouter();
+  const router = useRouter();
 
-    const handleLogin = () => {
-        console.log("Re-routing to Spotify for Authorization");
+  const handleLogin = async () => {
+    try {
+      const response = await axios.get('/api/login');
+      if (response.status === 200) {
+        // The server should redirect the user to the Spotify authorization page
+        console.log("Redirection to Spotify initiated");
+      } else {
+        console.error("Failed to initiate Spotify authorization");
+      }
+    } catch (error) {
+      console.error("An error occurred while initiating Spotify authorization", error);
+    }
+  };
 
-        axios.get('/api/login');
+  useEffect(() => {
+    const query = new URL(url);
+    const access_token = query.searchParams.get('access_token') || null;
+
+    if (access_token) {
+      router.push('https://multiselect-tool.vercel.app/'); // ensures there are no URL params
+    } else {
+      console.log("Came here but nothing in URL so no redirect happened");
+    }
+  }, [url, router]);
+
+    // const router = useRouter();
+
+    // const handleLogin = () => {
+    //     console.log("Re-routing to Spotify for Authorization");
+
+    //     axios.get('/api/login');
 
         // const state = generateRandomString(16);
         // const scope = `
@@ -50,7 +77,7 @@ export default function Login({ url }: LoginProps) {
         // });
 
         // router.push(`https://accounts.spotify.com/authorize?${queryParams}`);
-    };
+    // };
 
 
     // useEffect(() => {
@@ -83,16 +110,16 @@ export default function Login({ url }: LoginProps) {
     //     }
     // }, [url]);
 
-    useEffect(() => {
-        const query = new URL(url);
-        const access_token = query.searchParams.get('access_token') || null;
+    // useEffect(() => {
+    //     const query = new URL(url);
+    //     const access_token = query.searchParams.get('access_token') || null;
 
-        if (access_token) {
-            router.push('https://multiselect-tool.vercel.app/') // makes sure theres no url params
-        } else {
-            console.log("came here but nothing in url so no redirect happened");
-        }
-    }, []);
+    //     if (access_token) {
+    //         router.push('https://multiselect-tool.vercel.app/') // makes sure theres no url params
+    //     } else {
+    //         console.log("came here but nothing in url so no redirect happened");
+    //     }
+    // }, []);
 
     return (
         <main className="flex min-h-screen flex-col items-center justify-center p-24">
